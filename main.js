@@ -28,5 +28,5 @@ module.exports.loop = function () {
         }
     }
     
-    spawner.run();
+    (new spawner()).run();
 }

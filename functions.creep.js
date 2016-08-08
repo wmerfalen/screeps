@@ -20,5 +20,8 @@ module.exports = {
             if(Game.creeps[i].memory.role == type){ count++; }
         }
         return count;
+    },
+    count: function(){
+        return Object.keys(Game.creeps).length;
     }
 };

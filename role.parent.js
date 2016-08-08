@@ -14,9 +14,21 @@ function parent(){
 };
 
 parent.prototype.preDispatch = function(creep){
-        if(creep.ticksToLive <= config.tickWarning()){
+        var spawn = config.spawn();
+        if( (creep.memory.renew || creep.ticksToLive <= config.tickWarning()) && spawn.energy > 100){
             console.log("Tick warning on creep: " + creep.id);
+            creep.memory.renew = true;
+            if(creep.pos.isNearTo(spawn)){
+                var ret = spawn.renewCreep(creep);
+                if(ret == ERR_FULL){
+                    creep.memory.renew = false;
+                }
+            }else{
+                creep.moveTo(spawn);
+            }
+            return false;
         }
+        return true;
     };
 parent.prototype.roleTemplate = function(){
 	    return scale.getScaledTemplate();

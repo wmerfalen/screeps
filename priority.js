@@ -10,6 +10,7 @@ var func = require('functions.creep');
 var config = require('config');
 var construction = require('struct.construction');
 var tower = require('role.tower');
+var roads = require('struct.roads');
 
 module.exports = {
     favorClass: null,
@@ -25,56 +26,37 @@ module.exports = {
         //If we have a tower and RCL < 4, focus on upgraders
             //Setup a ration of 3:1
         //If we have construction sites, add 2 more builders to the builder quota
-        
-        
-        //Scan for enemies, if enemies found and tower is up, if two towerFeeders are not spawned, change the roles of two random creeps to towerFeeders
+
+
+        var length = Object.keys(Game.creeps).length;
+        var half = length / 2;
+        var ctr = length;
         var towerFeeders = func.getCreepCount('towerFeeder');
         var room = config.room();
         var hostiles = room.find(FIND_HOSTILE_CREEPS);
-        if(hostiles.length){
-            if(towerFeeders < config.towerFeedersDuringInvasion()){
-                //Grab any random creeps and turn them into towerFeeders
-                var ctr = 0;
-                for(var i in Game.creeps){
-                    if(ctr++ == config.towerFeedersDuringInvasion()){
-                        break;
-                    }
+
+        for(var i in Game.creeps){
+            if(ctr-- > half){
+                Game.creeps[i].memory.source = 0;
+            }else{
+                Game.creeps[i].memory.source = 1;
+            }
+            if(hostiles.length){
+                if(towerFeeders < config.towerFeedersDuringInvasion()){
                     Game.creeps[i].memory.role = 'towerFeeder';
-                }
-                if(ctr < config.towerFeedersDuringInvasion()){
-                    
+                    towerFeeders++;
                 }
             }
-        }else{
-            //Non-violent code
-            
-            //If no construction sites are up
-            try{
-                if(construction.count() == 0){
-                    for(var i in Game.creeps){
-                        if(Game.creeps[i].memory.role == 'builder'){
-                            Game.creeps[i].memory.role = 'upgrader';
-                        }
-                    }
+            if(construction.count() == 0 && Game.creeps[i].memory.role == 'builder' && roads.getNextHeal(config.room()) == null){
+                Game.creeps[i].memory.role = 'upgrader';
+            }else if(construction.count() > 0){
+                if(Game.creeps[i].name.match(/^builder/)){
+                    Game.creeps[i].memory.role = 'builder';
                 }
-            }catch(e){
-                
-            }
-            //If there are no towers
-            //if(tower.count() == 0 && )
-        }
-        
-        //If there are no harvesters then switch 2 of the current creeps roles to harvester
-        var harvesters = func.getCreepCount('harvester');
-        if(harvesters < config.minimumHarvesters()){
-            var ctr = 0;
-            for(var i in Game.creeps){
-                if(ctr++ >= config.minimumHarvesters()){ break; }
-                Game.creeps[i].memory.role = 'harvester';
             }
         }
         
-        return r;
+        return 0;
     },
     shiftAllRoles: function(){
         

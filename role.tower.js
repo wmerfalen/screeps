@@ -12,6 +12,7 @@ var scale = require('scale');
 var funcCreep = require('functions.creep');
 var walls = require('struct.walls');
 var parent = require('role.parent');
+var roads = require('struct.roads');
 
 var roleTower = function(){};
 console.log("Role tower prototype: " + roleTower.prototype);
@@ -39,10 +40,17 @@ roleTower.prototype.run = function(room) {
         }
         
         var w = walls.getNextHeal(config.room());
-        if(w===null){ return; }
+        if(w===null){  }
         else{
             for(var i in towers){
                 var ret = towers[i].repair(w);
+            }
+        }
+        
+        var heal = roads.getNextHeal(config.room());
+        if(heal){
+            for(var i in towers){
+                console.log("Tower heal: " + towers[i].repair(heal));
             }
         }
         

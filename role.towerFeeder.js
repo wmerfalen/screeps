@@ -8,7 +8,7 @@
  */
 var config = require('config');
 var scale = require('scale');
-var tower = require('role.tower');
+var roleTower = require('role.tower');
 var parent = require('role.parent');
 
 var roleTowerFeeder = function(){};
@@ -23,6 +23,7 @@ roleTowerFeeder.prototype.run = function(creep) {
             }
         }
         else {
+            var tower = new roleTower();
             var towers = tower.getAllTowers(config.room());
             var target = null;
             for(var i in towers){

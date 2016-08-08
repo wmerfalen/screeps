@@ -22,8 +22,8 @@ roleUpgrader.prototype.run = function(creep) {
             creep.moveTo(creep.room.controller);
         }
         if(creep.carry.energy == 0 || creep.memory['harvesting']){
-            if(creep.harvest(sources[config.upgraderSource]) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(sources[config.upgraderSource]);
+            if(creep.harvest(sources[config.upgraderSource(creep)]) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(sources[config.upgraderSource(creep)]);
             }
             creep.memory['harvesting'] = true;
         }

@@ -7,16 +7,38 @@
  * mod.thing == 'a thing'; // true
  */
 
+/*
+ * UPDATES
+ * - Builders repair roads
+ * - Builders build construction sites that are closest to the source they are mining
+ * - Harvesters use the source closest to the spawn
+ */
+/*
+ * TODO:
+ * - Builders need to repair walls
+ * - Prevent overcrowding the sources
+ * - Have upgraders use the source closest to the controller
+ * - Create "run once" code 
+ * - Create priority queue
+ * - Finish cron class
+ */
+
 var roleBuilder = require('role.builder');
 var roleHarvester = require('role.harvester');
-var roleTower = require('role.tower');
+var tower = require('role.tower');
 var roleTowerFeeder = require('role.towerFeeder');
 var roleUpgrader = require('role.upgrader');
 var priority = require('priority');
 var config = require('config');
 var general = require('functions.general');
+var controller = require('struct.controller');
+var cron = require('cron');
 
-module.exports = {
+var roleTower = new tower();
+var spawnPoint = function(){};
+
+spawnPoint.prototype.constructor = function(){ };
+spawnPoint.prototype = {
     UPGRADER: 1,
     TOWER_FEEDER: 2,
     BUILDER: 3,
@@ -29,25 +51,26 @@ module.exports = {
             'harvester': {
                 'runner': new roleHarvester(),
                 'counter': function(){
-                    console.log("Counter for harvest");
-                    var harvesterAttempt = spawner.spawn('harvester');
-                    switch(harvesterAttempt){
-                        case ERR_NOT_ENOUGH_ENERGY:
-                            if(spawner.count('harvester') == 0){
-                                //We have zero harvesters and not enough energy to spawn a harvester. We must switch roles for a few units
-                                //Grab the first two units we find and turn them into harvesters
-                                var ctr = 0;
-                                for(var i in Game.creeps){
-                                    Game.creeps[i].memory.role = 'harvester';
-                                    if(++ctr == 2){
-                                        break;
+                    if(spawner.creepCount['harvester'] == 0){
+                        var harvesterAttempt = spawner.spawn('harvester');
+                        switch(harvesterAttempt){
+                            case ERR_NOT_ENOUGH_ENERGY:
+                                if(spawner.count('harvester') == 0){
+                                    //We have zero harvesters and not enough energy to spawn a harvester. We must switch roles for a few units
+                                    //Grab the first two units we find and turn them into harvesters
+                                    var ctr = 0;
+                                    for(var i in Game.creeps){
+                                        Game.creeps[i].memory.role = 'harvester';
+                                        if(++ctr == 2){
+                                            break;
+                                        }
                                     }
                                 }
-                            }
-                            break;
-                        default:
-                            console.log("Unhandled harvesterAttempt: " + harvesterAttempt);
-                            break;
+                                break;
+                            default:
+                                console.log("Unhandled harvesterAttempt: " + harvesterAttempt);
+                                break;
+                        }
                     }
                     return 2;
                 }
@@ -55,7 +78,11 @@ module.exports = {
             'towerFeeder': {
                 'runner': new roleTowerFeeder(),
                 'counter': function(){
-                    return 2;
+                    if(roleTower.count()){
+                        return 2;
+                    }else{
+                        return 0;
+                    }
                 }
             },
             'upgrader': {
@@ -89,17 +116,17 @@ module.exports = {
     },
     spawn: function(type){
         var c = this.creeps()[type];
-        console.log(type);
         if(typeof c == 'undefined'){
             console.log("Cannot spawn, creep undefined");
             return -1;
         }else{
+            console.log("Spawning creep: " + type);
             return this.spawnPoint.createCreep(c['runner'].roleTemplate(),type + '_' + general.guid(),{role: type});
         }
     },
     run: function(){
         this.clearCount();
-        if(Game.creeps.length == 0){
+        if(Object.keys(Game.creeps).length == 0){
             this.spawn('harvester');
         }
         for(var name in Game.creeps) {
@@ -110,21 +137,32 @@ module.exports = {
             }
             this.creepCount[creep.memory.role]++;
             var runner = this.creeps()[creep.memory.role]['runner'];
-            runner.preDispatch(creep);
-            runner.run(creep);
+            if(runner.preDispatch(creep)){
+                runner.run(creep);
+            }
+            console.log(name);
+        }
+
+        for(var i in this.creeps()){
+            
+            console.log("I: " + i + "::" + this.creepCount[i] + " < " + this.creeps()[i].counter());
+            
+            if(typeof this.creepCount[i] == 'undefined' || this.creepCount[i] < this.creeps()[i].counter()){
+                console.log("Spawning: " + i);
+                this.spawn(i);
+            }
+        }
+        //If not ran, run init on this room
+        for(var i in Game.rooms){
+            config.init(Game.rooms[i]);
         }
         
         //TODO: Find a better way to do this
         var room = config.room();
-    
-        var prCheck = priority.check();
-
-        for(var i in this.creeps()){
-            if(this.creepCount.hasOwnProperty(i) == false || (this.creepCount[i] < this.creeps()[i].counter())){
-                this.spawn(i);
-            }
-        }
-        (new roleTower).run(room);
+        
+        priority.check();
+        roleTower.run(room);
+        (new cron).run(room);
 
     },
     spawnCost: function(role)
@@ -172,3 +210,5 @@ module.exports = {
 	}
 
 };
+
+module.exports = spawnPoint;

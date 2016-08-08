@@ -41,6 +41,7 @@ module.exports = {
         };
     },
     getScaledTemplate: function(){
+        return [WORK,MOVE,CARRY];
         var ext = this.getCurrentExtensions(funcCreep.firstCreep());
         if(ext == 1){
 	        return [WORK,MOVE,CARRY,CARRY];
