@@ -14,12 +14,12 @@ var parent = require('role.parent');
 var roleTowerFeeder = function(){};
 roleTowerFeeder.prototype = Object.create(parent.prototype);
 
-//roleTowerFeeder.prototype.constructor = function(){};
+
 roleTowerFeeder.prototype.run = function(creep) {
 	    if(creep.carry.energy < creep.carryCapacity) {
             var sources = creep.room.find(FIND_SOURCES);
-            if(creep.harvest(sources[config.harvesterSource]) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(sources[config.harvesterSource]);
+            if(creep.harvest(sources[config.harvesterSource(creep)]) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(sources[config.harvesterSource(creep)]);
             }
         }
         else {
