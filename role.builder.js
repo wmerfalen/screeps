@@ -46,18 +46,30 @@ roleBuilder.prototype.run = function(creep) {
         }
     }
 };
+
+roleBuilder.prototype.maxCreep = function(){
+    return 4;
+}
 	
 roleBuilder.prototype.shouldSpawn = function(){
-        var func = require('functions.creep');
-        var creep = func.firstCreep();
-        if(creep === null){
-            return false;
-        }
-        var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
-        if(walls.getNextHeal(config.room()) == 0){
-            return true;
-        }
-        return targets.length;
-    };
+    var func = require('functions.creep');
+    var creep = func.firstCreep();
+    if(creep === null){
+        return false;
+    }
+    var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
+    if(walls.getNextHeal(config.room()) == 0){
+        return true;
+    }
+    return targets.length;
+};
 
+roleBuilder.prototype.getSpawnWeight = function(){
+    var creepCount = funcCreep.getCreepCount('builder');
+    if(creepCount >= this.maxCreep()){
+        return 0;
+    }
+    return 4;
+
+}
 module.exports = roleBuilder;

@@ -10,6 +10,7 @@ var config = require('config');
 var scale = require('scale');
 var ext = require('struct.extension');
 var parent = require('role.parent');
+var creepFunc = require('functions.creep');
 
 var roleHarvester = function(){
     parent.call(this);
@@ -93,5 +94,15 @@ roleHarvester.prototype.run = function(creep) {
 
         }
 	};
+	
+roleHarvester.prototype.getSpawnWeight = function(){
+    var spawnWeight = 0;
+    
+    if(creepFunc.getCreepCount('harvester') < 2){
+        spawnWeight += 6;
+    }
+
+    return spawnWeight;
+}	
 
 module.exports = roleHarvester;

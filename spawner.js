@@ -33,6 +33,7 @@ var config = require('config');
 var general = require('functions.general');
 var controller = require('struct.controller');
 var cron = require('cron');
+var queue = require('queue');
 
 var roleTower = new tower();
 var spawnPoint = function(){};
@@ -140,18 +141,36 @@ spawnPoint.prototype = {
             if(runner.preDispatch(creep)){
                 runner.run(creep);
             }
-            console.log(name);
         }
 
-        for(var i in this.creeps()){
-            
-            console.log("I: " + i + "::" + this.creepCount[i] + " < " + this.creeps()[i].counter());
-            
-            if(typeof this.creepCount[i] == 'undefined' || this.creepCount[i] < this.creeps()[i].counter()){
-                console.log("Spawning: " + i);
-                this.spawn(i);
+        var creeps = this.creeps();
+        var spawnQueue = new queue();
+        //#########################
+        //# spawn decision making #
+        //#########################
+        //If towers exist and energy is low, shift two existing roles to towerFeeders
+        //If RCL is >= 5 and RCL <= 6 and towerCount < 2, spawn tower
+        //If RCL == 4 spawn extensions
+        //If spawn hasn't been fed energy in ten ticks, prioritize spawning harvesters
+        //If roads are near destruction, prioritize builders. Priority level is less than harvester priority level
+        //If construction sites exist, make sure there are atleast 2 builders
+        //===========================================================================================================
+        Memory.spawn_check -= 1;
+        if(Memory.spawn_check <= 0){
+            console.log("Spawn check");
+            for(var i in creeps){
+                if(creeps[i].runner.getSpawnWeight){
+                    spawnQueue.set({'level': creeps[i].runner.getSpawnWeight(), 'type': i});
+                }
             }
+            
+            if(spawnQueue.items.length){
+                console.log("Prioritzied spawn: " + spawnQueue.next()['type']);
+                this.spawn(spawnQueue.next()['type']);
+            }
+            Memory.spawn_check = 10;
         }
+        
         //If not ran, run init on this room
         for(var i in Game.rooms){
             config.init(Game.rooms[i]);

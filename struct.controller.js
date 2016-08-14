@@ -8,7 +8,13 @@
  */
 
 var config = require('config');
-module.exports = {
+var struct = require('struct.parent');
+
+var controller  = function(){};
+controller.prototype = Object.create(struct.prototype);
+
+
+controller.prototype = {
     get: function(){
         var room = config.room();
         return room.controller;
@@ -18,3 +24,5 @@ module.exports = {
         return controller.level;
     }
 };
+
+module.exports = controller;

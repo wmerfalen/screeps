@@ -7,6 +7,7 @@
  * mod.thing == 'a thing'; // true
  */
 
+var config = require('config');
 module.exports = {
     firstCreep: function(){
         for(var i in Game.creeps){
@@ -23,5 +24,9 @@ module.exports = {
     },
     count: function(){
         return Object.keys(Game.creeps).length;
+    },
+    invasion: function(){
+        var hostiles = config.room().find(FIND_HOSTILE_CREEPS);
+        return hostiles.length;
     }
 };

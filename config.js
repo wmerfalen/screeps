@@ -6,7 +6,7 @@
  * var mod = require('config');
  * mod.thing == 'a thing'; // true
  */
-
+require('constants');
 module.exports = {
     roleOverride: false,
     builderSource: function(creep){
@@ -102,6 +102,7 @@ module.exports = {
             }
             ctr++;
         }
+        //TODO: implement favored source in all roles
         if(sourceRating[0] > sourceRating[1]){
             room.memory.favor_source = 0;
         }else if(sourceRating[1] > sourceRating[0]){
@@ -110,5 +111,9 @@ module.exports = {
             room.memory.favor_source = 'both';
         }
         
+        if(Memory.hasOwnProperty('spawn_check') == false){
+            Memory.spawn_check = 10;
+        }
+
     }
 };
