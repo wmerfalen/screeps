@@ -11,7 +11,7 @@ var config = require('config');
 var struct = require('struct.parent');
 
 var controller  = function(){};
-controller.prototype = Object.create(struct.prototype);
+controller.prototype = Object.create(function(){});
 
 
 controller.prototype = {
