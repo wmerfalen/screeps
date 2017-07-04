@@ -47,12 +47,14 @@ roleTower.prototype.run = function(room) {
             }
         }
         
+        /* TODO: finish this functionality 
         var heal = roads.getNextHeal(config.room());
         if(heal){
             for(var i in towers){
                 console.log("Tower heal: " + towers[i].repair(heal));
             }
         }
+        */
         
     };
 roleTower.prototype.getAllTowers = function(room){
