@@ -156,7 +156,7 @@ spawnPoint.prototype = {
             var creep = Game.creeps[name];
             var total = Game.creeps.length;
             if(Game.creeps[name].memory.hasOwnProperty('role') == false || 
-              typeof Game.creeps[name].memory.['role'] == 'undefined'
+              typeof Game.creeps[name].memory['role'] == 'undefined'
                     ){
                 Game.creeps[name].memory.role = 'harvester';
             }
