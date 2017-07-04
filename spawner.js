@@ -173,8 +173,9 @@ spawnPoint.prototype = {
             if(this.creepCount[creep.memory.role] > runner.maxCreep()){
                 /* Maximum creep count reached for this role. Start killing off newbs */
                 while(runner.maxCreep() < this.creepCount[creep.memory.role]){
+                    this.creepCOunt[creep.memory.role]--;
                     runner.shift_role(creep,'upgrader');
-                    this.creepCount[creep.memory.role]--;
+                    this.creepCount['upgrader']++;
                 }
             }
             if(runner.preDispatch(creep)){
