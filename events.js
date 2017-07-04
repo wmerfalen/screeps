@@ -12,7 +12,7 @@ module.exports = {
     recent_type: null,
     has_seen_events: [],
     has_seen_add: function(type){
-        has_seen_events.push(type);
+        this.has_seen_events.push(type);
     },
     has_seen: function(type){
         return this.has_seen_events.find(function(ele){ return ele == type; });
