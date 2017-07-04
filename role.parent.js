@@ -39,7 +39,7 @@ parent.prototype.roleTemplate = function(){
 	    return scale.getScaledTemplate();
 	};
 
-parent.prototype.shift_role(creep,type){
+parent.prototype.shift_role = function(creep,type){
     creep.memory.role = type;
 }
 
