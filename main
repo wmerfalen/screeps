@@ -1,14 +1,14 @@
-var roleTowerFeeder = require('role.towerFeeder.js');
-var roleHarvester = require('role.harvester.js');
-var roleUpgrader = require('role.upgrader.js');
-var roleBuilder = require('role.builder.js');
-var roleTower = require('role.tower.js');
-var spawner = require('spawner.js');
-var events = require('events.js');
-var config = require('config.js');
-var priority = require('priority.js');
-var general = require('functions.general.js');
-var constants = require('constants.js');
+var roleTowerFeeder = require('role.towerFeeder');
+var roleHarvester = require('role.harvester');
+var roleUpgrader = require('role.upgrader');
+var roleBuilder = require('role.builder');
+var roleTower = require('role.tower');
+var spawner = require('spawner');
+var events = require('events');
+var config = require('config');
+var priority = require('priority');
+var general = require('functions.general');
+var constants = require('constants');
 
 function revertRoles(type){
     for(var i in Game.creeps){
@@ -20,7 +20,7 @@ function revertRoles(type){
 }
 
 /* TODO: Seeing as how this is the main loop of our entire system, it would be wise
- * to start moving a lot of the functionality away from spawner.js and into
+ * to start moving a lot of the functionality away from spawner and into
  * this loop export. 
  */
 module.exports.loop = function () {
