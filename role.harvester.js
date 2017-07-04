@@ -6,12 +6,12 @@
  * var mod = require('role.harvester');
  * mod.thing == 'a thing'; // true
  */
-var config = require('config');
-var scale = require('scale');
-var ext = require('struct.extension');
-var parent = require('role.parent');
-var creepFunc = require('functions.creep');
-
+var config = require('config.js');
+var scale = require('scale.js');
+var ext = require('struct.extension.js');
+var parent = require('role.parent.js');
+var creepFunc = require('functions.creep.js');
+var events = require('events.js');
 var roleHarvester = function(){
     parent.call(this);
 }
@@ -20,10 +20,10 @@ roleHarvester.prototype = Object.create(parent.prototype);
 
 roleHarvester.prototype.constructor = roleHarvester;
 roleHarvester.prototype.run = function(creep) {
+    
         var spawn = config.spawn();
-        console.log("harvester run");
         if(spawn.energy < spawn.energyCapacity){
-                    creep.memory.energy_fallback = false;
+                creep.memory.energy_fallback = false;
         }
         if(typeof spawn == "undefined"){
             console.log("SPAWN undefined");
@@ -39,6 +39,11 @@ roleHarvester.prototype.run = function(creep) {
                 console.log("harvester - moving to source");
                 creep.moveTo(sources[config.harvesterSource(creep)]);
             }else{
+                switch(ret){
+                    case ERR_INVALID_TARGET:
+                        console.log("Invalid source passed to creep[harvester]... searching..");
+                        
+                }
                 console.log("Harvest unhandled return: " + ret);
             }
             return;
@@ -81,6 +86,14 @@ roleHarvester.prototype.run = function(creep) {
                     console.log("harvester - Spawn full");
                     creep.memory.energy_fallback = true;
                     creep.memory.energy_full = true;
+                    return {'trigger_type':'spawn_full','trigger_unless': 1,'trigger_unless_cb': function(events_object){
+                            if(events_object.has_seen('spawn_not_full')){
+                                return false;
+                            }else{
+                                return true;
+                            }
+                        }
+                    };
                     break;
                 case ERR_NOT_IN_RANGE:
                     console.log("harvester - moving to spawn");
@@ -90,11 +103,12 @@ roleHarvester.prototype.run = function(creep) {
                     console.log("Unhandled creep.transfer:" + transferReturn);
                     break;
             }
-
-
         }
 	};
-	
+roleHarvester.prototype.maxCreep = function(){	
+    //TODO: dynamically calculate the number of required harvesters
+    return 4;
+};
 roleHarvester.prototype.getSpawnWeight = function(){
     var spawnWeight = 0;
     
