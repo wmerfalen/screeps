@@ -39,4 +39,8 @@ parent.prototype.roleTemplate = function(){
 	    return scale.getScaledTemplate();
 	};
 
+parent.prototype.shift_role(creep,type){
+    creep.memory.role = type;
+}
+
 module.exports = parent;
