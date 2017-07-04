@@ -23,18 +23,20 @@
  * - Finish cron class
  */
 
-var roleBuilder = require('role.builder');
-var roleHarvester = require('role.harvester');
-var tower = require('role.tower');
-var roleTowerFeeder = require('role.towerFeeder');
-var roleUpgrader = require('role.upgrader');
-var priority = require('priority');
-var config = require('config');
-var general = require('functions.general');
-var controller = require('struct.controller');
-var cron = require('cron');
-var queue = require('queue');
-
+var roleBuilder = require('role.builder.js');
+var roleHarvester = require('role.harvester.js');
+var tower = require('role.tower.js');
+var roleTowerFeeder = require('role.towerFeeder.js');
+var roleUpgrader = require('role.upgrader.js');
+var roleControllerUpgrader = require('role.controllerUpgrader.js');
+var priority = require('priority.js');
+var config = require('config.js');
+var general = require('functions.general.js');
+var controller = require('struct.controller.js');
+var cron = require('cron.js');
+var queue = require('queue.js');
+var constants = require('constants.js');
+var events = require('events.js')
 var roleTower = new tower();
 var spawnPoint = function(){};
 
@@ -46,8 +48,29 @@ spawnPoint.prototype = {
     HARVESTER: 4,
     spawnPoint: Game.spawns.Spawn1,
     creepCount: {},
+    creepTypes: function(){
+        return {
+            'harvester':{
+                'controller_level': 0
+            },
+            'towerFeeder': {
+                'controller_level': 5   //TODO: this isn't correct, find out what the real value is
+            },
+            'upgrader': {
+                'controller_level': 0
+            },
+            'builder': {
+                'controller_level': 0
+            }
+        };
+    },
+    'eventHandler': events,
+    'trigger_handler': function(trigger_return){
+        console.log(trigger_return);
+    },
     creeps: function(){
         var spawner = this;
+        console.log("inside spawner");
         return { 
             'harvester': {
                 'runner': new roleHarvester(),
@@ -97,6 +120,12 @@ spawnPoint.prototype = {
                 'counter': function(){
                     return 4;
                 }
+            },
+            'controllerUpgrader': {
+                'runner': new roleControllerUpgrader(),
+                'counter': function(){
+                    return 1;
+                }
             }
         };
     },
@@ -136,14 +165,52 @@ spawnPoint.prototype = {
             if(Game.creeps[name].memory.hasOwnProperty('role') == false){
                 Game.creeps[name].memory.role = 'harvester';
             }
-            this.creepCount[creep.memory.role]++;
             var runner = this.creeps()[creep.memory.role]['runner'];
+            
+            this.creepCount[creep.memory.role] = this.count(creep.memory.role);
+            if(this.creepCount[creep.memory.role] < runner.maxCreep()){
+                if(this.creepTypes(creep.memory.role).controller_level <= creep.room.controller.level){
+                    this.spawn(creep.memory.role);
+                }
+            }
+            
+            if(this.creepCount[creep.memory.role] > runner.maxCreep()){
+                /* Maximum creep count reached for this role. Start killing off newbs */
+                while(runner.maxCreep() < this.creepCount[creep.memory.role]){
+                    runner.destroy(creep);
+                    this.creepCount[creep.memory.role]--;
+                }
+            }
             if(runner.preDispatch(creep)){
-                runner.run(creep);
+                var status = runner.run(creep);
+                if(status){
+                    if(status.hasOwnProperty('shift_role')){
+                        //TODO: shift the role of this creep. FInd out what needs to be changed memory-wise to make this happen
+                        
+                    }
+                    if(status.hasOwnProperty('spawn_new')){
+                        /* In the example of Harvesters, sometimes the spawn is full. If that's the case and the maxCreep() count
+                         * for current harvesters is below whats on the playing field, then spawn a creep. 
+                         * NOTE: it does NOT have to be another harvester creep that gets spawned. If we have a full spawn, then
+                         * the next viable thing to do might be to spawn an upgrader.
+                         */
+                        
+                    }
+                    if(status.hasOwnProperty('trigger')){
+                        //TODO: trigger an event on a listener object
+                        /* If spawn is full */
+                        return this.trigger_handler(this.eventHandler.trigger(status.trigger,status.trigger_data));
+                    }
+                    if(status.hasOwnProperty('trigger_unless')){
+                        return this.trigger_handler(this.eventHandler.trigger_unless(status.trigger_type,status.trigger_unless_cb));
+                    }
+                }
             }
         }
 
         var creeps = this.creeps();
+        //TODO: repair this functionality 
+        /*
         var spawnQueue = new queue();
         //#########################
         //# spawn decision making #
@@ -170,18 +237,14 @@ spawnPoint.prototype = {
             }
             Memory.spawn_check = 10;
         }
-        
-        //If not ran, run init on this room
-        for(var i in Game.rooms){
-            config.init(Game.rooms[i]);
-        }
+        */
         
         //TODO: Find a better way to do this
         var room = config.room();
         
         priority.check();
         roleTower.run(room);
-        (new cron).run(room);
+        cron.run(room);
 
     },
     spawnCost: function(role)
