@@ -6,18 +6,16 @@
  * var mod = require('role.parent');
  * mod.thing == 'a thing'; // true
  */
-var config = require('config');
-var scale = require('scale');    
+var config = require('config.js');
+var scale = require('scale.js');    
 
 function parent(){
     
 };
 
 parent.prototype.preDispatch = function(creep){
-    if((Game.time % 10) == 0){
-        console.log(creep.memory.role);
-    }
     var spawn = config.spawn();
+    /* If the number of creeps for this particular role exceeds the max, destroy this creep */
     if( (creep.memory.renew || creep.ticksToLive <= config.tickWarning()) && spawn.energy > 100){
         console.log("Tick warning on creep: " + creep.id);
         creep.memory.renew = true;
@@ -31,7 +29,11 @@ parent.prototype.preDispatch = function(creep){
         }
         return false;
     }
+    
     return true;
+};
+parent.prototype.destroy = function(creep){
+    creep.suicide();
 };
 parent.prototype.roleTemplate = function(){
 	    return scale.getScaledTemplate();
