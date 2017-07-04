@@ -28,7 +28,6 @@ var roleHarvester = require('role.harvester');
 var tower = require('role.tower');
 var roleTowerFeeder = require('role.towerFeeder');
 var roleUpgrader = require('role.upgrader');
-var roleControllerUpgrader = require('role.controllerUpgrader');
 var priority = require('priority');
 var config = require('config');
 var general = require('functions.general');
@@ -121,12 +120,6 @@ spawnPoint.prototype = {
                     return 4;
                 }
             },
-            'controllerUpgrader': {
-                'runner': new roleControllerUpgrader(),
-                'counter': function(){
-                    return 1;
-                }
-            }
         };
     },
     clearCount: function(){
