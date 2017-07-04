@@ -33,7 +33,6 @@ var config = require('config');
 var general = require('functions.general');
 var controller = require('struct.controller');
 var cron = require('cron');
-//var queue = require('queue');
 var constants = require('constants');
 var events = require('events')
 var roleTower = new tower();
@@ -179,7 +178,7 @@ spawnPoint.prototype = {
                 if(status){
                     if(status.hasOwnProperty('shift_role')){
                         //TODO: shift the role of this creep. FInd out what needs to be changed memory-wise to make this happen
-                        
+                       console.log('shift_role stub'); 
                     }
                     if(status.hasOwnProperty('spawn_new')){
                         /* In the example of Harvesters, sometimes the spawn is full. If that's the case and the maxCreep() count
@@ -187,14 +186,17 @@ spawnPoint.prototype = {
                          * NOTE: it does NOT have to be another harvester creep that gets spawned. If we have a full spawn, then
                          * the next viable thing to do might be to spawn an upgrader.
                          */
+                        console.log('spawn_new event stub');
                         
                     }
                     if(status.hasOwnProperty('trigger')){
                         //TODO: trigger an event on a listener object
                         /* If spawn is full */
+                        console.log('trigger: ' + status.trigger);
                         return this.trigger_handler(this.eventHandler.trigger(status.trigger,status.trigger_data));
                     }
                     if(status.hasOwnProperty('trigger_unless')){
+                        console.log('trigger_unless event' + status.trigger_type);
                         return this.trigger_handler(this.eventHandler.trigger_unless(status.trigger_type,status.trigger_unless_cb));
                     }
                 }
