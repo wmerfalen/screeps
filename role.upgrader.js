@@ -17,7 +17,7 @@ roleUpgrader.prototype = Object.create(parent.prototype);
 //roleUpgrader.prototype.constructor = function(){}; 
 
 roleUpgrader.prototype.output = function(msg){
-    console.log(this.creep.toString() . "[ " + msg + " ]");
+    console.log(this.creep.toString() + "[ " + msg + " ]");
 };
 
 roleUpgrader.prototype.run = function(creep) {
