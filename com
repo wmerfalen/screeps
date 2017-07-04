@@ -1,1 +1,1 @@
-git add -A ; git commit -m "foo" ; tsocks git push origin master
+git add -A ; git commit -m "foo" ; git push origin master
