@@ -3,7 +3,7 @@
  * module.exports.thing = 'a thing';
  *
  * You can import it from another modules like this:
- * var mod = require('constants.js');
+ * var mod = require('constants');
  * mod.thing == 'a thing'; // true
  */
 

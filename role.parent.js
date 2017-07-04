@@ -6,8 +6,8 @@
  * var mod = require('role.parent');
  * mod.thing == 'a thing'; // true
  */
-var config = require('config.js');
-var scale = require('scale.js');    
+var config = require('config');
+var scale = require('scale');    
 
 function parent(){
     

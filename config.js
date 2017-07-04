@@ -6,7 +6,7 @@
  * var mod = require('config');
  * mod.thing == 'a thing'; // true
  */
-require('constants.js');
+require('constants');
 module.exports = {
     roleOverride: false,
     builderSource: function(creep){

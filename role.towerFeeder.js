@@ -6,12 +6,12 @@
  * var mod = require('role.harvester');
  * mod.thing == 'a thing'; // true
  */
-var config = require('config.js');
-var scale = require('scale.js');
-var ext = require('struct.extension.js');
-var parent = require('role.parent.js');
-var creepFunc = require('functions.creep.js');
-var events = require('events.js');
+var config = require('config');
+var scale = require('scale');
+var ext = require('struct.extension');
+var parent = require('role.parent');
+var creepFunc = require('functions.creep');
+var events = require('events');
 var roleTowerFeeder = function(){
     parent.call(this);
 }

@@ -23,20 +23,20 @@
  * - Finish cron class
  */
 
-var roleBuilder = require('role.builder.js');
-var roleHarvester = require('role.harvester.js');
-var tower = require('role.tower.js');
-var roleTowerFeeder = require('role.towerFeeder.js');
-var roleUpgrader = require('role.upgrader.js');
-var roleControllerUpgrader = require('role.controllerUpgrader.js');
-var priority = require('priority.js');
-var config = require('config.js');
-var general = require('functions.general.js');
-var controller = require('struct.controller.js');
-var cron = require('cron.js');
-var queue = require('queue.js');
-var constants = require('constants.js');
-var events = require('events.js')
+var roleBuilder = require('role.builder');
+var roleHarvester = require('role.harvester');
+var tower = require('role.tower');
+var roleTowerFeeder = require('role.towerFeeder');
+var roleUpgrader = require('role.upgrader');
+var roleControllerUpgrader = require('role.controllerUpgrader');
+var priority = require('priority');
+var config = require('config');
+var general = require('functions.general');
+var controller = require('struct.controller');
+var cron = require('cron');
+var queue = require('queue');
+var constants = require('constants');
+var events = require('events')
 var roleTower = new tower();
 var spawnPoint = function(){};
 
