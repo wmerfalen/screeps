@@ -16,10 +16,17 @@ roleUpgrader.prototype = Object.create(parent.prototype);
 
 //roleUpgrader.prototype.constructor = function(){}; 
 
+roleUpgrader.prototype.output = function(msg){
+    console.log(this.creep.toString() . "[ " + msg + " ]");
+};
+
 roleUpgrader.prototype.run = function(creep) {
+    this.creep = creep;
+    this.output("inside upgrader run");
     var sources = creep.room.find(FIND_SOURCES);
 
     if((typeof creep.memory['harvesting'] == 'undefined' || creep.memory['harvesting'] == false) && creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE){
+        this.output("moving to upgrade controller: ");
         creep.moveTo(creep.room.controller);
     }
     if(creep.carry.energy == 0 || creep.memory['harvesting']){
