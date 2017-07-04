@@ -6,15 +6,16 @@
  * var mod = require('config');
  * mod.thing == 'a thing'; // true
  */
-require('constants');
+require('constants.js');
 module.exports = {
     roleOverride: false,
     builderSource: function(creep){
+        //TODO: finish this impl
         return 0;
         return creep.memory.source;
     },
     harvesterSource: function(creep){
-        if(!creep.memory.hasOwnProperty('source') || creep.memory.source === null){
+        if(creep.memory.hasOwnProperty('source') || creep.memory.source === null){
             var sources = creep.room.find(FIND_SOURCES);
             var ctr = 0;
             for(var i in sources){
@@ -28,13 +29,12 @@ module.exports = {
         return creep.memory.source;
     },
     upgraderSource: function(creep){
+        //TODO: finishi this impl
         return 0;
         return creep.memory.source;
     },
     room: function(){
-        for(var i in Game.rooms){
-            return Game.rooms[i];
-        }
+        return Game.rooms.pop();
     },
     tickWarning: function(){
         return 100;
@@ -111,7 +111,7 @@ module.exports = {
             room.memory.favor_source = 'both';
         }
         
-        if(Memory.hasOwnProperty('spawn_check') == false){
+        if(typeof Memory['spawn_check'] == 'undefined'){
             Memory.spawn_check = 10;
         }
 
