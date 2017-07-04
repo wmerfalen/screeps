@@ -148,13 +148,16 @@ spawnPoint.prototype = {
     },
     run: function(){
         this.clearCount();
+        console.log(Game.creeps);
         if(Object.keys(Game.creeps).length == 0){
             this.spawn('harvester');
         }
         for(var name in Game.creeps) {
             var creep = Game.creeps[name];
             var total = Game.creeps.length;
-            if(Game.creeps[name].memory.hasOwnProperty('role') == false){
+            if(Game.creeps[name].memory.hasOwnProperty('role') == false || 
+              typeof Game.creeps[name].memory.hasOwnProperty('role') == 'undefined'
+                    ){
                 Game.creeps[name].memory.role = 'harvester';
             }
             var runner = this.creeps()[creep.memory.role]['runner'];
