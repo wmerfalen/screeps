@@ -170,13 +170,11 @@ spawnPoint.prototype = {
                 }
             }
             
-            if(this.creepCount[creep.memory.role] > runner.maxCreep()){
-                /* Maximum creep count reached for this role. Start killing off newbs */
-                while(runner.maxCreep() < this.creepCount[creep.memory.role]){
-                    this.creepCount[creep.memory.role]--;
-                    runner.shift_role(creep,'upgrader');
-                    this.creepCount['upgrader']++;
-                }
+        
+            if(this.creepCount[creep.memory.role] > runner.maxCreep() && creep.memory.role == 'harvester'){
+                this.creepCount[creep.memory.role]--;
+                runner.shift_role(creep,'upgrader');
+                this.creepCount['upgrader']++;
             }
             if(runner.preDispatch(creep)){
                 var status = runner.run(creep);
