@@ -63,8 +63,10 @@ spawnPoint.prototype = {
         };
     },
     'eventHandler': events,
-    'trigger_handler': function(trigger_return){
-        console.log(trigger_return);
+    'trigger_handler': function(type,event_name,extra_data){
+        if(type == 'trigger_unless' && event_name == 'spawn_full'){
+            this.eventHandler.trigger('spawn_new','harvester');
+        }
     },
     creeps: function(){
         var spawner = this;
@@ -193,11 +195,11 @@ spawnPoint.prototype = {
                         //TODO: trigger an event on a listener object
                         /* If spawn is full */
                         console.log('trigger: ' + status.trigger);
-                        return this.trigger_handler(this.eventHandler.trigger(status.trigger,status.trigger_data));
+                        return this.trigger_handler('trigger',this.eventHandler.trigger(status.trigger,status.trigger_data));
                     }
                     if(status.hasOwnProperty('trigger_unless')){
-                        console.log('trigger_unless event' + status.trigger_type);
-                        return this.trigger_handler(this.eventHandler.trigger_unless(status.trigger_type,status.trigger_unless_cb));
+                        console.log('trigger_unless event: ' + status.trigger_type);
+                        return this.trigger_handler('trigger_unless',status.trigger_type,status.trigger_unless_cb,this.eventHandler.trigger_unless(status.trigger_type,status.trigger_unless_cb));
                     }
                 }
             }
