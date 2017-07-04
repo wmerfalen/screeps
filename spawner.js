@@ -155,12 +155,8 @@ spawnPoint.prototype = {
         for(var name in Game.creeps) {
             var creep = Game.creeps[name];
             var total = Game.creeps.length;
-            if(Game.creeps[name].memory.hasOwnProperty('role') == false || 
-              typeof Game.creeps[name].memory.role == 'undefined'
-                    ){
                 console.log('setting creep role to harvester');
                 Game.creeps[name].memory.role = 'harvester';
-            }
             var runner = this.creeps()[creep.memory.role]['runner'];
             
             this.creepCount[creep.memory.role] = this.count(creep.memory.role);
