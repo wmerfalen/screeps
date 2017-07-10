@@ -160,7 +160,6 @@ spawnPoint.prototype = {
             if(typeof Game.creeps[name].memory.role == 'undefined'){
                 console.log('setting creep role to harvester');
                 Game.creeps[name].memory.role = 'harvester';
-                Game.creeps[name].name('harvester_' + general.small_guid());
             }
             var runner = this.creeps()[creep.memory.role]['runner'];
             

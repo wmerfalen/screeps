@@ -22,7 +22,6 @@ roleTowerFeeder.prototype.constructor = roleTowerFeeder;
 roleTowerFeeder.prototype.run = function(creep) {
     
         //TODO: finish this code to make it work for tower feeders
-        console.log('tower feeder stub');
         return;
         var spawn = config.spawn();
         if(spawn.energy < spawn.energyCapacity){
