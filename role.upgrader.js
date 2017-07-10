@@ -22,11 +22,11 @@ roleUpgrader.prototype.output = function(msg){
 
 roleUpgrader.prototype.run = function(creep) {
     this.creep = creep;
-    this.output("inside upgrader run");
+    //this.output("inside upgrader run");
     var sources = creep.room.find(FIND_SOURCES);
 
     if((typeof creep.memory['harvesting'] == 'undefined' || creep.memory['harvesting'] == false) && creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE){
-        this.output("moving to upgrade controller: ");
+        //this.output("moving to upgrade controller: ");
         creep.moveTo(creep.room.controller);
     }
     if(creep.carry.energy == 0 || creep.memory['harvesting']){
