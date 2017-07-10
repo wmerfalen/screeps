@@ -170,7 +170,9 @@ spawnPoint.prototype = {
                     this.spawn(creep.memory.role);
                 }
             }
-            creep.say(creep.memory.role[0]);
+            if((Game.time % 20) == 0){
+                console.log([this.creepCount[creep.memory.role],creep.memory.role].join(' '));
+            }
         
             if(this.creepCount[creep.memory.role] > runner.maxCreep() && creep.memory.role == 'harvester'){
                 this.creepCount[creep.memory.role]--;

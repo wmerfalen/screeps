@@ -49,64 +49,29 @@ roleHarvester.prototype.run = function(creep) {
             return;
         }
 
-        /*
-	    if(creep.carry.energy < creep.carryCapacity && creep.carry.energy) {
-	        console.log("harvester carry energy < carry capacity");
-	        //If we were in the middle of a transfer, attempt to offload to another extension
-	        if(creep.memory.energy_full){
-	            //Move to the next extension
-	            var nextExt = ext.nextEnergyQueue(creep);
-	            if(nextExt !== null){
-	                creep.memory.transfering = true;
-	                var r= creep.transfer(nextExt,RESOURCE_ENERGY);
-	                if(r == ERR_NOT_IN_RANGE){
-	                    creep.moveTo(nextExt);
-	                    return;
-	                }
-	                if(r == ERR_FULL){
-	                    console.log("harvester recursion");
-	                    this.run(creep);
-	                    return;
-	                }
-	            }
-	        }
-        }else {
-            if(creep.memory.energy_fallback !== false){
-                var energyFallback = ext.nextEnergyQueue(creep);
-                var r = creep.transfer(energyFallback,RESOURCE_ENERGY);
-                if(r == ERR_NOT_IN_RANGE){
-                    console.log("harvester moving to energy fallback");
-                    creep.moveTo(energyFallback);
-                    return;
-                }
-                
-            }
-            var transferReturn = 0;
-            */
-            console.log("harvester transfering to spawn");
-            switch(transferReturn = creep.transfer(spawn,RESOURCE_ENERGY)){
-                case ERR_FULL:
-                    console.log("harvester - Spawn full");
-                    creep.memory.energy_fallback = true;
-                    creep.memory.energy_full = true;
-                    return {'trigger_type':'spawn_full','trigger_unless': 1,'trigger_unless_cb': function(events_object){
-                            if(events_object.has_seen('spawn_not_full')){
-                                return false;
-                            }else{
-                                return true;
-                            }
+        console.log("harvester transfering to spawn");
+        switch(transferReturn = creep.transfer(spawn,RESOURCE_ENERGY)){
+            case ERR_FULL:
+                console.log("harvester - Spawn full");
+                creep.memory.energy_fallback = true;
+                creep.memory.energy_full = true;
+                return {'trigger_type':'spawn_full','trigger_unless': 1,'trigger_unless_cb': function(events_object){
+                        if(events_object.has_seen('spawn_not_full')){
+                            return false;
+                        }else{
+                            return true;
                         }
-                    };
-                    break;
-                case ERR_NOT_IN_RANGE:
-                    console.log("harvester - moving to spawn");
-                    creep.moveTo(spawn);
-                    break;
-                default:
-                    console.log("Unhandled creep.transfer:" + transferReturn);
-                    break;
-            }
-        //}
+                    }
+                };
+                break;
+            case ERR_NOT_IN_RANGE:
+                console.log("harvester - moving to spawn");
+                creep.moveTo(spawn);
+                break;
+            default:
+                console.log("Unhandled creep.transfer:" + transferReturn);
+                break;
+        }
 	};
 roleHarvester.prototype.maxCreep = function(){	
     //TODO: dynamically calculate the number of required harvesters
