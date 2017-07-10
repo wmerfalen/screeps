@@ -145,7 +145,7 @@ spawnPoint.prototype = {
             return -1;
         }else{
             console.log("Spawning creep: " + type);
-            return this.spawnPoint.createCreep(c['runner'].roleTemplate(),type + '_' + general.guid(),{role: type});
+            return this.spawnPoint.createCreep(c['runner'].roleTemplate(),type + '_' + general.small_guid(),{role: type});
         }
     },
     run: function(){
@@ -160,6 +160,7 @@ spawnPoint.prototype = {
             if(typeof Game.creeps[name].memory.role == 'undefined'){
                 console.log('setting creep role to harvester');
                 Game.creeps[name].memory.role = 'harvester';
+                Game.creeps[name].name('harvester_' + general.small_guid());
             }
             var runner = this.creeps()[creep.memory.role]['runner'];
             

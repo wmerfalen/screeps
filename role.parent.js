@@ -8,6 +8,7 @@
  */
 var config = require('config');
 var scale = require('scale');    
+var general = require('functions.general');
 
 function parent(){
     
@@ -41,6 +42,7 @@ parent.prototype.roleTemplate = function(){
 
 parent.prototype.shift_role = function(creep,type){
     creep.memory.role = type;
+    creep.name(type + '_' + general.small_guid());
 }
 
 module.exports = parent;
