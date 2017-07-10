@@ -15,7 +15,6 @@ var parent = require('role.parent');
 var roads = require('struct.roads');
 
 var roleTower = function(){};
-console.log("Role tower prototype: " + roleTower.prototype);
 roleTower.prototype = Object.create(parent.prototype);
 //roleTower.prototype.constructor = function(){};
 
@@ -34,7 +33,6 @@ roleTower.prototype.run = function(room) {
             }
             for(var t in towers){
                 var ret = towers[t].attack(hostile);
-                console.log(ret);
             }
             return;
         }
