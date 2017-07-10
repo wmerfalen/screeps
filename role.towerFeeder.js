@@ -38,7 +38,6 @@ roleTowerFeeder.prototype.run = function(creep) {
             var sources = creep.room.find(FIND_SOURCES);
             var ret = creep.harvest(sources[config.harvesterSource(creep)]);
             if( ret == ERR_NOT_IN_RANGE) {
-                console.log("harvester - moving to source");
                 creep.moveTo(sources[config.harvesterSource(creep)]);
             }else{
                 switch(ret){
@@ -53,7 +52,6 @@ roleTowerFeeder.prototype.run = function(creep) {
             return;
         }
 	    if(creep.carry.energy < creep.carryCapacity && creep.carry.energy) {
-	        console.log("harvester carry energy < carry capacity");
 	        //If we were in the middle of a transfer, attempt to offload to another extension
 	        if(creep.memory.energy_full){
 	            //Move to the next extension
