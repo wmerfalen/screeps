@@ -36,7 +36,7 @@ roleHarvester.prototype.run = function(creep) {
             var sources = creep.room.find(FIND_SOURCES);
             var ret = creep.harvest(sources[config.harvesterSource(creep)]);
             if( ret == ERR_NOT_IN_RANGE) {
-                console.log("harvester - moving to source");
+                //console.log("harvester - moving to source");
                 creep.moveTo(sources[config.harvesterSource(creep)]);
             }else{
                 switch(ret){
@@ -49,7 +49,7 @@ roleHarvester.prototype.run = function(creep) {
             return;
         }
 
-        console.log("harvester transfering to spawn");
+        //console.log("harvester transfering to spawn");
         switch(transferReturn = creep.transfer(spawn,RESOURCE_ENERGY)){
             case ERR_FULL:
                 console.log("harvester - Spawn full");
@@ -65,7 +65,7 @@ roleHarvester.prototype.run = function(creep) {
                 };
                 break;
             case ERR_NOT_IN_RANGE:
-                console.log("harvester - moving to spawn");
+                //console.log("harvester - moving to spawn");
                 creep.moveTo(spawn);
                 break;
             default:

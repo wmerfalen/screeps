@@ -70,7 +70,7 @@ spawnPoint.prototype = {
     },
     creeps: function(){
         var spawner = this;
-        console.log("inside spawner");
+        //console.log("inside spawner");
         return { 
             'harvester': {
                 'runner': new roleHarvester(),
@@ -150,7 +150,7 @@ spawnPoint.prototype = {
     },
     run: function(){
         this.clearCount();
-        console.log(Game.creeps);
+        //console.log(Game.creeps);
         if(Object.keys(Game.creeps).length == 0){
             this.spawn('harvester');
         }
