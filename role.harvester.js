@@ -48,6 +48,8 @@ roleHarvester.prototype.run = function(creep) {
             }
             return;
         }
+
+        /*
 	    if(creep.carry.energy < creep.carryCapacity && creep.carry.energy) {
 	        console.log("harvester carry energy < carry capacity");
 	        //If we were in the middle of a transfer, attempt to offload to another extension
@@ -80,6 +82,7 @@ roleHarvester.prototype.run = function(creep) {
                 
             }
             var transferReturn = 0;
+            */
             console.log("harvester transfering to spawn");
             switch(transferReturn = creep.transfer(spawn,RESOURCE_ENERGY)){
                 case ERR_FULL:
@@ -103,7 +106,7 @@ roleHarvester.prototype.run = function(creep) {
                     console.log("Unhandled creep.transfer:" + transferReturn);
                     break;
             }
-        }
+        //}
 	};
 roleHarvester.prototype.maxCreep = function(){	
     //TODO: dynamically calculate the number of required harvesters
