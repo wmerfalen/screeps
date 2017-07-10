@@ -44,9 +44,9 @@ roleTowerFeeder.prototype.run = function(creep) {
                 switch(ret){
                     case ERR_INVALID_TARGET:
                         console.log("Invalid source passed to creep[harvester]... searching..");
-                        break;
+                        return;
                     case 0:
-                        break;
+                        return;
                 }
                 console.log("Harvest unhandled return: " + ret);
             }
