@@ -70,7 +70,6 @@ spawnPoint.prototype = {
     },
     creeps: function(){
         var spawner = this;
-        console.log("inside spawner");
         return { 
             'harvester': {
                 'runner': new roleHarvester(),
@@ -150,7 +149,6 @@ spawnPoint.prototype = {
     },
     run: function(){
         this.clearCount();
-        console.log(Game.creeps);
         /* This will spawn a creep if there are no creeps on the field */
         if(Object.keys(Game.creeps).length == 0){
             this.spawn('harvester');
@@ -160,7 +158,6 @@ spawnPoint.prototype = {
             var total = Game.creeps.length;
             /* This will usually run if we have code that somehow borked the memory */
             if(typeof Game.creeps[name].memory.role == 'undefined'){
-                console.log('setting creep role to harvester');
                 Game.creeps[name].memory.role = 'harvester';
             }
             var runner = this.creeps()[creep.memory.role]['runner'];
