@@ -70,7 +70,7 @@ spawnPoint.prototype = {
     },
     creeps: function(){
         var spawner = this;
-        //console.log("inside spawner");
+        console.log("inside spawner");
         return { 
             'harvester': {
                 'runner': new roleHarvester(),
@@ -145,18 +145,20 @@ spawnPoint.prototype = {
             return -1;
         }else{
             console.log("Spawning creep: " + type);
-            return this.spawnPoint.createCreep(c['runner'].roleTemplate(),type + '_' + general.small_guid(),{role: type});
+            return this.spawnPoint.createCreep(c['runner'].roleTemplate(),type + '_' + general.guid(),{role: type});
         }
     },
     run: function(){
         this.clearCount();
-        //console.log(Game.creeps);
+        console.log(Game.creeps);
+        /* This will spawn a creep if there are no creeps on the field */
         if(Object.keys(Game.creeps).length == 0){
             this.spawn('harvester');
         }
         for(var name in Game.creeps) {
             var creep = Game.creeps[name];
             var total = Game.creeps.length;
+            /* This will usually run if we have code that somehow borked the memory */
             if(typeof Game.creeps[name].memory.role == 'undefined'){
                 console.log('setting creep role to harvester');
                 Game.creeps[name].memory.role = 'harvester';
@@ -169,14 +171,21 @@ spawnPoint.prototype = {
                     this.spawn(creep.memory.role);
                 }
             }
-            if((Game.time % 20) == 0){
-                console.log([this.creepCount[creep.memory.role],creep.memory.role].join(' '));
-            }
-        
-            if(this.creepCount[creep.memory.role] > runner.maxCreep() && creep.memory.role == 'harvester'){
-                this.creepCount[creep.memory.role]--;
-                runner.shift_role(creep,'upgrader');
-                this.creepCount['upgrader']++;
+            
+            if(this.creepCount[creep.memory.role] > runner.maxCreep()){
+                /* Maximum creep count reached for this role. Start killing off newbs */
+                    this.creepCount[creep.memory.role]--;
+                    if(creep.memory.role == 'upgrader'){
+                        runner.shift_role(creep,'builder');
+                        this.creepCount['builder']++;
+                    }else if(creep.memory.role == 'harvester'){
+                        runner.shift_role(creep,'upgrader');
+                        this.creepCount['upgrader']++;
+                    }else if(creep.memory.role == 'towerFeeder'){
+                        runner.shift_role(creep,'towerFeeder');
+                        this.creepCount['towerFeeder']++;
+                    }
+                }
             }
             if(runner.preDispatch(creep)){
                 var status = runner.run(creep);
