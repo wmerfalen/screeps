@@ -174,17 +174,16 @@ spawnPoint.prototype = {
             
             if(this.creepCount[creep.memory.role] > runner.maxCreep()){
                 /* Maximum creep count reached for this role. Start killing off newbs */
-                    this.creepCount[creep.memory.role]--;
-                    if(creep.memory.role == 'upgrader'){
-                        runner.shift_role(creep,'builder');
-                        this.creepCount['builder']++;
-                    }else if(creep.memory.role == 'harvester'){
-                        runner.shift_role(creep,'upgrader');
-                        this.creepCount['upgrader']++;
-                    }else if(creep.memory.role == 'towerFeeder'){
-                        runner.shift_role(creep,'towerFeeder');
-                        this.creepCount['towerFeeder']++;
-                    }
+                this.creepCount[creep.memory.role]--;
+                if(creep.memory.role == 'upgrader'){
+                    runner.shift_role(creep,'builder');
+                    this.creepCount['builder']++;
+                }else if(creep.memory.role == 'harvester'){
+                    runner.shift_role(creep,'upgrader');
+                    this.creepCount['upgrader']++;
+                }else if(creep.memory.role == 'towerFeeder'){
+                    runner.shift_role(creep,'towerFeeder');
+                    this.creepCount['towerFeeder']++;
                 }
             }
             if(runner.preDispatch(creep)){
