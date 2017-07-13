@@ -188,7 +188,7 @@ spawnPoint.prototype = {
                     if(typeof this.stop != 'undefined'){
                         return;
                     }
-                    if(tempThis.creepCount[ele] > this.creeps()[creep.memory.role]['runner'].maxCreep()){
+                    if(tempThis.creepCount[ele] > tempThis.creeps()[creep.memory.role]['runner'].maxCreep()){
                         return;
                     }else{
                         this.stop = true;
