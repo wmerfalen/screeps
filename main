@@ -37,6 +37,7 @@ module.exports.loop = function () {
     sp.eventHandler.addEventListener('spawn_full',function(data){
         ofSelf.print('spawn full event listener triggered');
         if((Game.time % constants.SPAWN_FULL_MODULOUS) != 0){
+            ofSelf.print('Game.time skipping...');
             return;
         }
         var rm = require('room.memory');
