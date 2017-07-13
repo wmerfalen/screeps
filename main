@@ -35,11 +35,7 @@ module.exports.loop = function () {
             return;
         }
         var rm = require('room.memory');
-        if(rm.get('spawn_full') === null){
-            rm.set('spawn_full',1);
-        }else{
-            rm.set('spawn_full',rm.get('spawn_full') + 1);
-        }
+        rm.increment('spawn_full');
         if(rm.get('spawn_full') > constants.MAX_SPAWN_FULL){
             /* The spawn has been full for more than MAX_SPAWN_FULL * SPAWN_FULL_MODULOUS ticks */
             /* Obbbbbviously, there's nothing going on... */
