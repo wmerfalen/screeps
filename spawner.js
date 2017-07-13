@@ -156,7 +156,6 @@ spawnPoint.prototype = {
         }
     },
     run: function(){
-        this.print('running spawner');
         this.clearCount();
         if(Object.keys(Game.creeps).length == 0){
             this.print('spawning new harvester');
