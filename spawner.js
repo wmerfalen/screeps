@@ -181,10 +181,22 @@ spawnPoint.prototype = {
             }
             
             if(this.creepCount[creep.memory.role] > runner.maxCreep()){
+                var tempThis = this;
+                var final_decision = 'harvester';
                 /* Maximum creep count reached for this role. Start killing off newbs */
-                this.creepCOunt[creep.memory.role]--;
-                runner.shift_role(creep,'upgrader');
-                this.creepCount['upgrader']++;
+                ['harvester','upgrader','builder','towerFeeder'].each(function(ele){
+                    if(typeof this.stop != 'undefined'){
+                        return;
+                    }
+                    if(tempThis.creepCount[ele] > this.creeps()[creep.memory.role]['runner'].maxCreep()){
+                        return;
+                    }else{
+                        this.stop = true;
+                        final_decision = ele;
+                    }
+                });
+                runner.shift_role(creep,final_decision);
+                this.print('Final decision for upgrade: ' + final_decision);
             }
             if(runner.preDispatch(creep)){
                 var status = runner.run(creep);
