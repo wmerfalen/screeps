@@ -18,6 +18,20 @@ function rm(){
         return room.memory[get];  
     };
     this.gameTick = Game.time;
+    this.increment = function(item){
+        if(typeof room.memory[item] == 'undefined'){
+            room.memory[item] = 1;
+        }else{
+            room.memory[item] = room.memory.item + 1;
+        }
+    };
+    this.decrement = function(item){
+        if(typeof room.memory[item] == 'undefined'){
+            room.memory[item] = -1;
+        }else{
+            room.memory[item] = room.memory.item - 1;
+        }
+    };
 };
 
 rm.prototype = {

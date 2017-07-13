@@ -75,7 +75,6 @@ spawnPoint.prototype = {
     },
     creeps: function(){
         var spawner = this;
-        console.log("inside spawner");
         return { 
             'harvester': {
                 'runner': new roleHarvester(),
@@ -155,7 +154,6 @@ spawnPoint.prototype = {
     },
     run: function(){
         this.clearCount();
-        console.log(Game.creeps);
         if(Object.keys(Game.creeps).length == 0){
             this.spawn('harvester');
         }
@@ -187,10 +185,6 @@ spawnPoint.prototype = {
             if(runner.preDispatch(creep)){
                 var status = runner.run(creep);
                 if(status){
-                    if(status.hasOwnProperty('shift_role')){
-                        //TODO: shift the role of this creep. FInd out what needs to be changed memory-wise to make this happen
-                       console.log('shift_role stub'); 
-                    }
                     if(status.hasOwnProperty('spawn_new')){
                         /* In the example of Harvesters, sometimes the spawn is full. If that's the case and the maxCreep() count
                          * for current harvesters is below whats on the playing field, then spawn a creep. 
