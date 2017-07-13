@@ -1,0 +1,12 @@
+set tabstop=4
+set number
+set expandtab
+set shiftwidth=4
+set autoindent
+set smartindent
+set pastetoggle=<F5>
+set rnu
+set exrc
+syntax on
+set syntax=javascript
+color elflord

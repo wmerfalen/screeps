@@ -3,12 +3,18 @@
  * module.exports.thing = 'a thing';
  *
  * You can import it from another modules like this:
- * var mod = require('constants');
+ * var mod = require('role.parent');
  * mod.thing == 'a thing'; // true
  */
 
-module.exports = {
-    'SPAWN_FULL': 1,
-    MAX_SPAWN_FULL: 10,
-    SPAWN_FULL_MODULOUS: 2
+function gm(){
+    
 };
+
+gm.prototype.constructor = function(){
+    this.set = function(set,val){
+        
+    };
+};
+
+module.exports = gm;

@@ -37,6 +37,8 @@ var constants = require('constants');
 var events = require('events')
 var roleTower = new tower();
 var spawnPoint = function(){};
+//var gameMemory = require('game.memory');
+var roomMemory = require('room.memory');
 
 spawnPoint.prototype.constructor = function(){ };
 spawnPoint.prototype = {
@@ -70,6 +72,7 @@ spawnPoint.prototype = {
     },
     creeps: function(){
         var spawner = this;
+        console.log("inside spawner");
         return { 
             'harvester': {
                 'runner': new roleHarvester(),
@@ -149,15 +152,16 @@ spawnPoint.prototype = {
     },
     run: function(){
         this.clearCount();
-        /* This will spawn a creep if there are no creeps on the field */
+        console.log(Game.creeps);
         if(Object.keys(Game.creeps).length == 0){
             this.spawn('harvester');
         }
+        
         for(var name in Game.creeps) {
             var creep = Game.creeps[name];
             var total = Game.creeps.length;
-            /* This will usually run if we have code that somehow borked the memory */
             if(typeof Game.creeps[name].memory.role == 'undefined'){
+                console.log('setting creep role to harvester');
                 Game.creeps[name].memory.role = 'harvester';
             }
             var runner = this.creeps()[creep.memory.role]['runner'];
@@ -171,16 +175,10 @@ spawnPoint.prototype = {
             
             if(this.creepCount[creep.memory.role] > runner.maxCreep()){
                 /* Maximum creep count reached for this role. Start killing off newbs */
-                this.creepCount[creep.memory.role]--;
-                if(creep.memory.role == 'upgrader'){
-                    runner.shift_role(creep,'builder');
-                    this.creepCount['builder']++;
-                }else if(creep.memory.role == 'harvester'){
+                while(runner.maxCreep() < this.creepCount[creep.memory.role]){
+                    this.creepCOunt[creep.memory.role]--;
                     runner.shift_role(creep,'upgrader');
                     this.creepCount['upgrader']++;
-                }else if(creep.memory.role == 'towerFeeder'){
-                    runner.shift_role(creep,'towerFeeder');
-                    this.creepCount['towerFeeder']++;
                 }
             }
             if(runner.preDispatch(creep)){
