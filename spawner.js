@@ -53,17 +53,17 @@ spawnPoint.prototype = {
             'harvester':{
                 'controller_level': 0
             },
-            'towerFeeder': {
-                'controller_level': 5   //TODO: this isn't correct, find out what the real value is
-            },
             'upgrader': {
                 'controller_level': 0
             },
             'builder': {
                 'controller_level': 0
-            }
+            },'towerFeeder': {
+                'controller_level': 5   //TODO: this isn't correct, find out what the real value is
+            },
         };
     },
+    creepTypesArray: ['harvester','upgrader','builder','towerFeeder'],
     'eventHandler': events,
     'trigger_handler': function(type,event_name,extra_data){
         if(type == 'trigger_unless' && event_name == 'spawn_full'){
@@ -184,7 +184,7 @@ spawnPoint.prototype = {
                 var tempThis = this;
                 var final_decision = 'harvester';
                 /* Maximum creep count reached for this role. Start killing off newbs */
-                ['harvester','upgrader','builder','towerFeeder'].each(function(ele){
+                this.creepTypesArray.each(function(ele){
                     if(typeof this.stop != 'undefined'){
                         return;
                     }
