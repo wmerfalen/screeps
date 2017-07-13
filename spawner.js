@@ -73,6 +73,9 @@ spawnPoint.prototype = {
     trigger: function(event_type,data){
         return this.trigger_handler('trigger',this.eventHandler.trigger(event_type,data));
     },
+    print: function(foo){
+       console.log(['{spawner}',foo.toString()].join(':')); 
+    },
     creeps: function(){
         var spawner = this;
         return { 
@@ -155,6 +158,7 @@ spawnPoint.prototype = {
     run: function(){
         this.clearCount();
         if(Object.keys(Game.creeps).length == 0){
+            this.print('spawning new harvester');
             this.spawn('harvester');
         }
         
@@ -162,7 +166,7 @@ spawnPoint.prototype = {
             var creep = Game.creeps[name];
             var total = Game.creeps.length;
             if(typeof Game.creeps[name].memory.role == 'undefined'){
-                console.log('setting creep role to harvester');
+                this.print('setting creep role to harvester');
                 Game.creeps[name].memory.role = 'harvester';
             }
             var runner = this.creeps()[creep.memory.role]['runner'];
@@ -170,17 +174,16 @@ spawnPoint.prototype = {
             this.creepCount[creep.memory.role] = this.count(creep.memory.role);
             if(this.creepCount[creep.memory.role] < runner.maxCreep()){
                 if(this.creepTypes(creep.memory.role).controller_level <= creep.room.controller.level){
+                    this.print('spawning new creep of type: ' + creep.memory.role);
                     this.spawn(creep.memory.role);
                 }
             }
             
             if(this.creepCount[creep.memory.role] > runner.maxCreep()){
                 /* Maximum creep count reached for this role. Start killing off newbs */
-                while(runner.maxCreep() < this.creepCount[creep.memory.role]){
-                    this.creepCOunt[creep.memory.role]--;
-                    runner.shift_role(creep,'upgrader');
-                    this.creepCount['upgrader']++;
-                }
+                this.creepCOunt[creep.memory.role]--;
+                runner.shift_role(creep,'upgrader');
+                this.creepCount['upgrader']++;
             }
             if(runner.preDispatch(creep)){
                 var status = runner.run(creep);
@@ -192,16 +195,15 @@ spawnPoint.prototype = {
                          * the next viable thing to do might be to spawn an upgrader.
                          */
                         console.log('spawn_new event stub');
-                        
                     }
                     if(status.hasOwnProperty('trigger')){
                         //TODO: trigger an event on a listener object
                         /* If spawn is full */
-                        console.log('trigger: ' + status.trigger);
+                        this.print('trigger: ' + status.trigger);
                         return this.trigger_handler('trigger',this.eventHandler.trigger(status.trigger,status.trigger_data));
                     }
                     if(status.hasOwnProperty('trigger_unless')){
-                        console.log('trigger_unless event: ' + status.trigger_type);
+                        this.print('trigger_unless event: ' + status.trigger_type);
                         return this.trigger_handler('trigger_unless',status.trigger_type,status.trigger_unless_cb,this.eventHandler.trigger_unless(status.trigger_type,status.trigger_unless_cb));
                     }
                 }
