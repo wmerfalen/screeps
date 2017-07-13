@@ -184,7 +184,7 @@ spawnPoint.prototype = {
                 var tempThis = this;
                 var final_decision = 'harvester';
                 /* Maximum creep count reached for this role. Start killing off newbs */
-                this.creepTypesArray.each(function(ele){
+                this.creepTypesArray.forEach(function(ele){
                     if(typeof this.stop != 'undefined'){
                         return;
                     }
