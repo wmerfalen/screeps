@@ -46,7 +46,7 @@ module.exports.loop = function () {
             
             /* If there are less harvesters than maxCreep, spawn new ones */
             console.log('Spawn has been full for: ' + (rm.get('spawn_full') * constants.SPAWN_FULL_MODULOUS) + " ticks");
-
+            sp.trigger('spawn_new','harvester');
         }
             
         console.log('[event] spawn is full: ' + data);

@@ -70,6 +70,9 @@ spawnPoint.prototype = {
             this.eventHandler.trigger('spawn_new','harvester');
         }
     },
+    trigger: function(event_type,data){
+        return this.trigger_handler('trigger',this.eventHandler.trigger(event_type,data));
+    },
     creeps: function(){
         var spawner = this;
         console.log("inside spawner");
