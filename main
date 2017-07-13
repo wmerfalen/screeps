@@ -18,6 +18,10 @@ function revertRoles(type){
  */
 module.exports.loop = function () {
 
+    var ofSelf = this;
+    this.print = function(foo){
+        console.log('{main}: ' + foo);
+    };
     for(var name in Memory.creeps) {
         if(!Game.creeps[name]) {
             delete Memory.creeps[name];
@@ -31,6 +35,7 @@ module.exports.loop = function () {
         sp.spawn(type);
     });
     sp.eventHandler.addEventListener('spawn_full',function(data){
+        ofSelf.print('spawn full event listener triggered');
         if((Game.time % constants.SPAWN_FULL_MODULOUS) != 0){
             return;
         }
