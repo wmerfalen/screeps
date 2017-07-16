@@ -34,7 +34,8 @@ roleHarvester.prototype.run = function(creep) {
         }
         if(creep.carry.energy < creep.carryCapacity && !creep.memory.energy_full){
             var sources = creep.room.find(FIND_SOURCES);
-                switch( creep.harvest(sources[config.harvesterSource(creep)]) ){
+            var ret = 0;
+                switch( ret = creep.harvest(sources[config.harvesterSource(creep)]) ){
                     case ERR_INVALID_TARGET:
                         console.log("Invalid source passed to creep[harvester]... searching..");
                         return;
