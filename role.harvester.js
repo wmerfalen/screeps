@@ -32,6 +32,7 @@ roleHarvester.prototype.run = function(creep) {
         if(creep.carry.energy == 0){
             creep.memory.energy_full = false;
         }
+        /*
         if(creep.carry.energy < creep.carryCapacity && !creep.memory.energy_full){
             var sources = creep.room.find(FIND_SOURCES);
             var ret = creep.harvest(sources[config.harvesterSource(creep)]);
@@ -49,7 +50,7 @@ roleHarvester.prototype.run = function(creep) {
                 }
             }
             return;
-        }
+        }*/
 
         switch(transferReturn = creep.transfer(spawn,RESOURCE_ENERGY)){
             case ERR_FULL:
