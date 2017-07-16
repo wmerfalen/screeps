@@ -32,7 +32,6 @@ roleHarvester.prototype.run = function(creep) {
         if(creep.carry.energy == 0){
             creep.memory.energy_full = false;
         }
-        /*
         if(creep.carry.energy < creep.carryCapacity && !creep.memory.energy_full){
             var sources = creep.room.find(FIND_SOURCES);
             var ret = creep.harvest(sources[config.harvesterSource(creep)]);
@@ -50,7 +49,7 @@ roleHarvester.prototype.run = function(creep) {
                 }
             }
             return;
-        }*/
+        }
 
         switch(transferReturn = creep.transfer(spawn,RESOURCE_ENERGY)){
             case ERR_FULL:
@@ -67,9 +66,11 @@ roleHarvester.prototype.run = function(creep) {
                 };
                 break;
             case ERR_NOT_IN_RANGE:
-                //console.log("harvester - moving to spawn");
                 creep.moveTo(spawn);
                 break;
+            case ERR_NOT_ENOUGH_RESOURCES:
+                console.log("Not enough resources");
+                /* Purpose-ful fall-through behaviour */
             default:
                 console.log("Unhandled creep.transfer:" + transferReturn);
                 break;
