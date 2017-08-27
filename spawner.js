@@ -176,7 +176,7 @@ spawnPoint.prototype = {
 				'upgrader':4,
 				'builder': 3,
 			};
-			if(typeof max_creep[creep.memory.role) !== 'undefined'){
+			if(typeof max_creep[creep.memory.role] !== 'undefined'){
 				if(this.count(creep.memory.role) < max_creep[creep.memory.role]){
 					this.spawn(creep.memory.role);
 				}
