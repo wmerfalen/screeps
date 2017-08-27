@@ -181,7 +181,7 @@ spawnPoint.prototype = {
 				if(this.count(i) < max_creep[i]){
 					this.spawn(i);
 				}
-            
+            }
             if(runner.preDispatch(creep)){
                 var status = runner.run(creep);
                 if(status){
