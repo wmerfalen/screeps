@@ -171,32 +171,17 @@ spawnPoint.prototype = {
             }
             var runner = this.creeps()[creep.memory.role]['runner'];
             
-            this.creepCount[creep.memory.role] = this.count(creep.memory.role);
-            if(this.creepCount[creep.memory.role] < runner.maxCreep()){
-                if(this.creepTypes(creep.memory.role).controller_level <= creep.room.controller.level){
-                    this.print('spawning new creep of type: ' + creep.memory.role);
-                    this.spawn(creep.memory.role);
-                }
-            }
+			var max_creep = {
+				'harvester': 6,
+				'upgrader':4,
+				'builder': 3,
+			};
+			if(typeof max_creep[creep.memory.role) !== 'undefined'){
+				if(this.count(creep.memory.role) < max_creep[creep.memory.role]){
+					this.spawn(creep.memory.role);
+				}
+			}
             
-            if(this.creepCount[creep.memory.role] > runner.maxCreep()){
-                var tempThis = this;
-                var final_decision = 'harvester';
-                /* Maximum creep count reached for this role. Start killing off newbs */
-                this.creepTypesArray.forEach(function(ele){
-                    if(typeof this.stop != 'undefined'){
-                        return;
-                    }
-                    if(tempThis.creepCount[ele] > tempThis.creeps()[creep.memory.role]['runner'].maxCreep()){
-                        return;
-                    }else{
-                        this.stop = true;
-                        final_decision = ele;
-                    }
-                });
-                runner.shift_role(creep,final_decision);
-                this.print('Final decision for upgrade: ' + final_decision);
-            }
             if(runner.preDispatch(creep)){
                 var status = runner.run(creep);
                 if(status){
