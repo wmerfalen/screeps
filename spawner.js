@@ -155,8 +155,26 @@ spawnPoint.prototype = {
             return this.spawnPoint.createCreep(c['runner'].roleTemplate(),type + '_' + general.guid(),{role: type});
         }
     },
+	once_ran : false,
+	run_once_per_turn: function(){
+		if(this.once_ran){ return; }
+			var max_creep = {
+				'harvester': 6,
+				'upgrader':4,
+				'builder': 3,
+			};
+
+			for(var i in max_creep){
+				if(this.count(i) < max_creep[i]){
+					this.spawn(i);
+				}
+            }
+
+		this.once_ran = true;
+	},
     run: function(){
         this.clearCount();
+		this.run_once_per_turn();
         if(Object.keys(Game.creeps).length == 0){
             this.print('spawning new harvester');
             this.spawn('harvester');
@@ -171,17 +189,6 @@ spawnPoint.prototype = {
             }
             var runner = this.creeps()[creep.memory.role]['runner'];
             
-			var max_creep = {
-				'harvester': 6,
-				'upgrader':4,
-				'builder': 3,
-			};
-
-			for(var i in max_creep){
-				if(this.count(i) < max_creep[i]){
-					this.spawn(i);
-				}
-            }
             if(runner.preDispatch(creep)){
                 var status = runner.run(creep);
                 if(status){
