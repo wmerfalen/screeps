@@ -44,6 +44,7 @@ roleHarvester.prototype.run = function(creep) {
                     case ERR_NOT_IN_RANGE:
                     case -12:
                         creep.moveTo(sources[config.harvesterSource(creep)]);
+						break;
                     default:
                         console.log("Harvest unhandled return: " + ret);
                 }
