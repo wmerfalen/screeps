@@ -159,8 +159,8 @@ spawnPoint.prototype = {
 	run_once_per_turn: function(){
 		if(this.once_ran){ return; }
 			var max_creep = {
-				'harvester': 6,
-				'upgrader':4,
+				'harvester': 3,
+				'upgrader':3,
 				'builder': 3,
 			};
 
@@ -214,38 +214,7 @@ spawnPoint.prototype = {
             }
         }
 
-        var creeps = this.creeps();
-        //TODO: repair this functionality 
-        /*
-        var spawnQueue = new queue();
-        //#########################
-        //# spawn decision making #
-        //#########################
-        //If towers exist and energy is low, shift two existing roles to towerFeeders
-        //If RCL is >= 5 and RCL <= 6 and towerCount < 2, spawn tower
-        //If RCL == 4 spawn extensions
-        //If spawn hasn't been fed energy in ten ticks, prioritize spawning harvesters
-        //If roads are near destruction, prioritize builders. Priority level is less than harvester priority level
-        //If construction sites exist, make sure there are atleast 2 builders
-        //===========================================================================================================
-        Memory.spawn_check -= 1;
-        if(Memory.spawn_check <= 0){
-            console.log("Spawn check");
-            for(var i in creeps){
-                if(creeps[i].runner.getSpawnWeight){
-                    spawnQueue.set({'level': creeps[i].runner.getSpawnWeight(), 'type': i});
-                }
-            }
-            
-            if(spawnQueue.items.length){
-                console.log("Prioritzied spawn: " + spawnQueue.next()['type']);
-                this.spawn(spawnQueue.next()['type']);
-            }
-            Memory.spawn_check = 10;
-        }
-        */
-        
-        //TODO: Find a better way to do this
+        //FIXME: Find a better way to do this
         var room = config.room();
         
         priority.check();
