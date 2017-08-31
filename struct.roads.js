@@ -7,7 +7,7 @@
  * mod.thing == 'a thing'; // true
  */
 
-module.exports = function(){
+module.exports = {
 	getNextHeal: function(){
 		return null;
 	}
