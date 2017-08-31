@@ -75,7 +75,7 @@ module.exports = {
             pos = spawn[i].pos;
             break;
         }
-        var closest = pos.findClosestByRange(FIND_SOURCES);
+        var closest = spawn[0].pos.findClosestByRange(FIND_SOURCES);
         room.memory.harvester_source = closest.id;
         
         var sources = room.find(FIND_SOURCES);
