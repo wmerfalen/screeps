@@ -158,7 +158,7 @@ spawnPoint.prototype = {
         }else{
             console.log("Spawning creep: " + type);
 			if(this.count(type) < this.max_creep[type]){
-				return this.spawnPoint.createCreep(c['runner'].roleTemplate(),type,{role: type});
+				return this.spawnPoint.createCreep([WORK,CARRY,MOVE],type,{role: type});
 			}
         }
     },
