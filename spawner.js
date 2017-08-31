@@ -152,12 +152,6 @@ spawnPoint.prototype = {
             return -1;
         }else{
             console.log("Spawning creep: " + type);
-            return this.spawnPoint.createCreep(c['runner'].roleTemplate(),type + '_' + general.guid(),{role: type});
-        }
-    },
-	once_ran : false,
-	run_once_per_turn: function(){
-		if(this.once_ran){ return; }
 			var max_creep = {
 				'harvester': 3,
 				'upgrader':3,
@@ -166,10 +160,14 @@ spawnPoint.prototype = {
 
 			for(var i in max_creep){
 				if(this.count(i) < max_creep[i]){
-					this.spawn(i);
+            		return this.spawnPoint.createCreep(c['runner'].roleTemplate(),type + '_' + general.guid(),{role: type});
 				}
             }
-
+        }
+    },
+	once_ran : false,
+	run_once_per_turn: function(){
+		if(this.once_ran){ return; }
 		this.once_ran = true;
 	},
     run: function(){

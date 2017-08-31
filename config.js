@@ -69,14 +69,8 @@ module.exports = {
             Game.creeps[i].memory.source = null;
         }
         //1: find the source that is closest to the spawn
-        var spawn = room.find(FIND_MY_SPAWNS);
-        var pos = 0;
-        for(var i in spawn){
-            pos = spawn[i].pos;
-            break;
-        }
-
-        var closest = Game.spawns['Spawn1'].pos.findClosestByRange(FIND_SOURCES);
+        var spawn = this.spawn();
+        var closest = spawn.pos.findClosestByRange(FIND_SOURCES);
         room.memory.harvester_source = closest.id;
         
         var sources = room.find(FIND_SOURCES);
@@ -112,9 +106,5 @@ module.exports = {
             room.memory.favor_source = 'both';
         }
         
-        if(typeof Memory['spawn_check'] == 'undefined'){
-            Memory.spawn_check = 10;
-        }
-
     }
 };
