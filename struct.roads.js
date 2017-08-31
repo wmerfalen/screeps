@@ -8,4 +8,7 @@
  */
 
 module.exports = function(){
+	getNextHeal: function(){
+		return null;
+	}
 };

@@ -31,11 +31,11 @@ roleBuilder.prototype.run = function(creep) {
         }else{ 
             //If no construction sites, start healing roads
             console.log("No construction sites. Healing roads");
-			/*
+			
             var road = roads.getNextHeal(creep.room);
             if(creep.repair(road) == ERR_NOT_IN_RANGE){
                 creep.moveTo(road);
-            }*/
+            }
         }
     }
     else {
