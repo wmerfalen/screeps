@@ -169,7 +169,7 @@ spawnPoint.prototype = {
 				for(var k in Game.creeps){
 					if(Game.creeps[k].memory.role == i){
 						Game.creeps[k].suicide();
-						break 2;
+						return;
 					}
 				}
 			}
