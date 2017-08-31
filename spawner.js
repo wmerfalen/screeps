@@ -145,6 +145,11 @@ spawnPoint.prototype = {
         }
         return count;
     },
+	max_creep: {
+				'harvester': 3,
+				'upgrader':3,
+				'builder': 3,
+			},
     spawn: function(type){
         var c = this.creeps()[type];
         if(typeof c == 'undefined'){
@@ -152,22 +157,26 @@ spawnPoint.prototype = {
             return -1;
         }else{
             console.log("Spawning creep: " + type);
-			var max_creep = {
-				'harvester': 3,
-				'upgrader':3,
-				'builder': 3,
-			};
-
-			for(var i in max_creep){
-				if(this.count(i) < max_creep[i]){
-            		return this.spawnPoint.createCreep(c['runner'].roleTemplate(),type + '_' + general.guid(),{role: type});
-				}
-            }
+			if(this.count(type) < this.max_creep[type]){
+				return this.spawnPoint.createCreep(c['runner'].roleTemplate(),type),{role: type});
+			}
         }
     },
 	once_ran : false,
+	exterminate_leftovers: function(){
+		for(var i in this.max_creep){
+			if(this.count(i) >= this.max_creep[i]){
+				for(var k in Game.creeps){
+					if(Game.creeps[k].memory.role == i){
+						Game.creeps[k].suicide();
+					}
+				}
+			}
+		}
+	},
 	run_once_per_turn: function(){
 		if(this.once_ran){ return; }
+		this.exterminate_leftovers();
 		this.once_ran = true;
 	},
     run: function(){
