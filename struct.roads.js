@@ -9,6 +9,14 @@
 
 module.exports = {
 	getNextHeal: function(){
-		return null;
+		var roads = [];
+		for(var i in Game.rooms){
+			var collection_of_roads = Game.rooms[i].find(FIND_STRUCTURES);
+			for(var i in collection_of_roads){
+				var current = (collection_of_roads[i]);
+				console.log(current);
+				return current;
+			}
+		}
 	}
 };
