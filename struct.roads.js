@@ -11,12 +11,24 @@ module.exports = {
 	getNextHeal: function(){
 		var roads = [];
 		for(var i in Game.rooms){
-			var collection_of_roads = Game.rooms[i].find(FIND_STRUCTURES);
-			for(var i in collection_of_roads){
-				var current = (collection_of_roads[i]);
-				console.log(current);
-				return current;
+			var collection_of_structures = Game.rooms[i].find(FIND_STRUCTURES);
+			for(var i in collection_of_structures){
+				var current = (collection_of_structures[i]);
+				if(current.toString().match(/road/)){
+					roads.push({'hits': current.hits,'obj': current});
+				}
 			}
 		}
+		if(roads.length <= 0){
+			return null;
+		}
+		var needs_help = null;
+		var lowest = 9999;
+		for(var i in roads){
+			if(lowest > roads[i].hits){
+				needs_help = roads[i].obj;
+			}
+		}
+		return needs_help;
 	}
 };
