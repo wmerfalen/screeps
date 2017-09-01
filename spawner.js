@@ -160,7 +160,7 @@ spawnPoint.prototype = {
         }else{
 			if(this.count(type) < this.max_creep[type]){
             	console.log("Spawning creep: " + type);
-				return this.spawnPoint().createCreep([WORK,CARRY,MOVE],[type,'_',this.count(type) + 1].join(''),{role: type});
+				return this.spawnPoint().createCreep([WORK,CARRY,MOVE],[type,'_',general.guid()].join(''),{role: type});
 			}
         }
     },
