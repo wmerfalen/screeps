@@ -46,7 +46,9 @@ spawnPoint.prototype = {
     TOWER_FEEDER: 2,
     BUILDER: 3,
     HARVESTER: 4,
-    spawnPoint: Game.spawns.Spawn1,
+    spawnPoint: function(){
+		return Game.spawns.Spawn1;
+	},
     creepCount: {},
     creepTypes: function(){
         return {
@@ -156,9 +158,9 @@ spawnPoint.prototype = {
             console.log("Cannot spawn, creep undefined");
             return -1;
         }else{
-            console.log("Spawning creep: " + type);
 			if(this.count(type) < this.max_creep[type]){
-				return this.spawnPoint.createCreep([WORK,CARRY,MOVE],type,{role: type});
+            	console.log("Spawning creep: " + type);
+				return this.spawnPoint().createCreep([WORK,CARRY,MOVE],[type,'_',this.count(type) + 1].join(''),{role: type});
 			}
         }
     },
