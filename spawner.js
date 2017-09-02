@@ -41,6 +41,7 @@ var constants = require('constants');
 var events = require('events')
 var spawnPoint = function(){};
 var roomMemory = require('room.memory');
+var roleTower = new tower();
 
 spawnPoint.prototype.constructor = function(){ };
 spawnPoint.prototype = {
