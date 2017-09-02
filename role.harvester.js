@@ -6,6 +6,7 @@
  * var mod = require('role.harvester');
  * mod.thing == 'a thing'; // true
  */
+var gameplan = require('gameplan');
 var config = require('config');
 var scale = require('scale');
 var ext = require('struct.extension');

@@ -11,10 +11,11 @@ module.exports = {
     roleOverride: false,
     builderSource: function(creep){
         //TODO: finish this impl
-        return 0;
+        return 1;
         return creep.memory.source;
     },
     harvesterSource: function(creep){
+		return 0;
         if(creep.memory.hasOwnProperty('source') || creep.memory.source === null){
             var sources = creep.room.find(FIND_SOURCES);
             var ctr = 0;
@@ -30,7 +31,7 @@ module.exports = {
     },
     upgraderSource: function(creep){
         //TODO: finishi this impl
-        return 0;
+        return 1;
         return creep.memory.source;
     },
     room: function(){
