@@ -134,6 +134,9 @@ spawnPoint.prototype = {
                     return 4;
                 }
             },
+			'repairMang': {
+
+			}
         };
     },
     clearCount: function(){
@@ -158,15 +161,9 @@ spawnPoint.prototype = {
 		'repairMang': 2,
 	},
     spawn: function(type){
-        var c = this.creeps()[type];
-        if(typeof c == 'undefined'){
-            console.log("Cannot spawn, creep undefined");
-            return -1;
-        }else{
-			if(this.count(type) < this.max_creep[type]){
-				return this.spawnPoint().createCreep([WORK,CARRY,MOVE],[type,'_',general.guid()].join(''),{role: type});
-			}
-        }
+		if(this.count(type) < this.max_creep[type]){
+			return this.spawnPoint().createCreep([WORK,CARRY,MOVE],[type,'_',general.guid()].join(''),{role: type});
+		}
     },
 	once_ran : false,
 	exterminate_leftovers: function(){
