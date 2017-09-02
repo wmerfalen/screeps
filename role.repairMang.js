@@ -64,7 +64,7 @@ roleRepairMang.prototype.run = function(creep) {
 			creep.moveTo(needs_help);
 		}else{
 			var ret=0;
-			creep.say('attempting heal on road');
+			creep.say('ahor');
 			switch(ret = creep.heal(needs_help)){
 				default: this.log(['unhandled return:',ret].join(''));break;
             	case ERR_NOT_IN_RANGE:

@@ -16,7 +16,7 @@ function my_parent(){
 	this.class_name = '<unset>';
 };
 
-my_parent.log = function(stuff){
+my_parent.prototype.log = function(stuff){
 	console.log([this.class_name,' said: "',stuff,'"'].join(''));
 };
 
