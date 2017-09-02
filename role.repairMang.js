@@ -12,7 +12,9 @@ var u = require('util');
 var roleRepairMang = function(creep){
     parent.call(this);
 	this.creep = creep;
-}
+	this.class_name = 'repairMang';
+};
+
 roleRepairMang.prototype = Object.create(parent.prototype);
 roleRepairMang.prototype.constructor = roleRepairMang;
 roleRepairMang.prototype.run = function(creep) {
@@ -29,6 +31,7 @@ roleRepairMang.prototype.getSpawnWeight = function(){
 }	
 
 roleRepairMang.prototype.run = function(creep) {
+		creep.say('moo');
         var spawn = config.spawn();
         if(!u.defined(spawn)){
             console.log("SPAWN undefined");
@@ -39,6 +42,7 @@ roleRepairMang.prototype.run = function(creep) {
         }
         var sources = creep.room.find(FIND_SOURCES);
         if(creep.carry.energy < creep.carryCapacity && !creep.memory.energy_full){
+			creep.say('moving to harvest');
             var ret = 0;
                 switch( ret = creep.harvest(sources[config.repairMangSource(creep)]) ){
                     case ERR_INVALID_TARGET:
@@ -60,9 +64,11 @@ roleRepairMang.prototype.run = function(creep) {
 		var roads = require('struct.roads');
 		var needs_help = roads.getNextHeal();
 		if(!needs_help.pos.isNearTo(creep)){
+			creep.say('moving to road');
 			creep.moveTo(needs_help);
 		}else{
 			var ret=0;
+			creep.say('attempting heal on road');
 			switch(ret = creep.heal(needs_help)){
 				default: this.log(['unhandled return:',ret].join(''));break;
             	case ERR_NOT_IN_RANGE:
