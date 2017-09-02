@@ -35,8 +35,8 @@ roleHarvester.prototype.run = function(creep) {
         if(creep.carry.energy == 0){
             u.memset(creep,'energy_full',false);
         }
+        var sources = creep.room.find(FIND_SOURCES);
         if(creep.carry.energy < creep.carryCapacity && !creep.memory.energy_full){
-            var sources = creep.room.find(FIND_SOURCES);
             var ret = 0;
                 switch( ret = creep.harvest(sources[config.harvesterSource(creep)]) ){
                     case ERR_INVALID_TARGET:
