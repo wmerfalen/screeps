@@ -76,6 +76,7 @@ roleHarvester.prototype.run = function(creep) {
                 /* Purpose-ful fall-through behaviour */
             default:
                 console.log("Unhandled creep.transfer:" + transferReturn);
+                creep.moveTo(sources[config.harvesterSource(creep)]);
                 break;
         }
 	};
