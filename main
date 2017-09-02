@@ -29,8 +29,8 @@ module.exports.loop = function () {
         }
     }
     
-	/*
     var sp = new spawner();
+	/*
     sp.eventHandler.addEventListener('spawn_new',function(type){
         console.log('[event] spawn_new of type: ' + type);
         sp.spawn(type);
