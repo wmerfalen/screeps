@@ -180,6 +180,10 @@ spawnPoint.prototype = {
 	run_once_per_turn: function(){
 		if(this.once_ran){ return; }
 		this.exterminate_leftovers();
+		/** Give each type a chance to spawn a creep if need be */
+		for(var i in this.max_creep){
+			this.spawn(i);
+		}
 		this.once_ran = true;
 	},
     run: function(){
