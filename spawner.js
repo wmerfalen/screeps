@@ -151,7 +151,7 @@ spawnPoint.prototype = {
 				'harvester': 3,
 				'upgrader':3,
 				'builder': 3,
-			},
+	},
     spawn: function(type){
         var c = this.creeps()[type];
         if(typeof c == 'undefined'){
@@ -166,7 +166,7 @@ spawnPoint.prototype = {
 	once_ran : false,
 	exterminate_leftovers: function(){
 		for(var i in this.max_creep){
-			if(this.count(i) >= this.max_creep[i]){
+			if(this.count(i) > this.max_creep[i]){
 				for(var k in Game.creeps){
 					if(Game.creeps[k].memory.role == i){
 						Game.creeps[k].suicide();

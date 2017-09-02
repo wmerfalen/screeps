@@ -37,8 +37,7 @@ roleBuilder.prototype.run = function(creep) {
                 creep.moveTo(road);
             }
         }
-    }
-    else {
+    } else {
         var sources = creep.room.find(FIND_SOURCES);
         if(creep.harvest(sources[config.builderSource(creep)]) == ERR_NOT_IN_RANGE) {
             creep.moveTo(sources[config.builderSource(creep)]);
