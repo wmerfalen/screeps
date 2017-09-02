@@ -163,7 +163,7 @@ spawnPoint.prototype = {
 	healers: ['repairMang'],
     spawn: function(type){
 		if(this.count(type) < this.max_creep[type]){
-			if(this.healers.find(type) !== -1){
+			if(this.healers.indexOf(type) !== -1){
 				return this.spawnPoint().createCreep([WORK,CARRY,MOVE,HEAL],[type,'_',general.guid()].join(''),{role: type});
 			}else{
 				return this.spawnPoint().createCreep([WORK,CARRY,MOVE],[type,'_',general.guid()].join(''),{role: type});
