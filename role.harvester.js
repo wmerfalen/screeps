@@ -73,10 +73,10 @@ roleHarvester.prototype.run = function(creep) {
                 break;
             case ERR_NOT_ENOUGH_RESOURCES:
                 console.log("Not enough resources");
-                /* Purpose-ful fall-through behaviour */
+				creep.memory.energy_full = false;
+				break;
             default:
                 console.log("Unhandled creep.transfer:" + transferReturn);
-                creep.moveTo(sources[config.harvesterSource(creep)]);
                 break;
         }
 	};
