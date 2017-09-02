@@ -47,9 +47,8 @@ roleRepairMang.prototype.run = function(creep) {
 						creep.say('0');
                         return;
                     case ERR_NOT_IN_RANGE:
-                    case -12:
 						creep.say('mt');
-                        creep.moveTo(sources[config.harvesterSource(creep)]);
+                        creep.moveTo(sources[config.repairMangSource(creep)]);
 						break;
                     default:
                         console.log("Harvest unhandled return: " + ret);
