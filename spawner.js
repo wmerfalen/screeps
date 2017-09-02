@@ -23,21 +23,23 @@
  * - Finish cron class
  */
 
+/* Roles */
 var roleBuilder = require('role.builder');
 var roleHarvester = require('role.harvester');
-var tower = require('role.tower');
 var roleTowerFeeder = require('role.towerFeeder');
 var roleUpgrader = require('role.upgrader');
+var roleRepairMang = require('role.repairMang');
+/* Structs */
+var tower = require('role.tower');
+var controller = require('struct.controller');
+/* Conceptual */
 var priority = require('priority');
 var config = require('config');
 var general = require('functions.general');
-var controller = require('struct.controller');
 var cron = require('cron');
 var constants = require('constants');
 var events = require('events')
-var roleTower = new tower();
 var spawnPoint = function(){};
-//var gameMemory = require('game.memory');
 var roomMemory = require('room.memory');
 
 spawnPoint.prototype.constructor = function(){ };
@@ -51,6 +53,7 @@ spawnPoint.prototype = {
 	},
     creepCount: {},
     creepTypes: function(){
+		/* Right idea, but hard-coded to fail */
         return {
             'harvester':{
                 'controller_level': 0
@@ -151,6 +154,7 @@ spawnPoint.prototype = {
 		'harvester': 3,
 		'upgrader':3,
 		'builder': 5,
+		'repairMang': 2,
 	},
     spawn: function(type){
         var c = this.creeps()[type];
@@ -207,6 +211,9 @@ spawnPoint.prototype = {
 					break;
 				case 'upgrader': 
             		runner = new roleUpgrader(creep);
+					break;
+				case 'repairMang':
+					runner = new roleRepairMang(creep);
 					break;
 				default:	/* Purposeful fall-through behaviour */
 				case 'harvester': 

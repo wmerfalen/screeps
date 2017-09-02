@@ -29,6 +29,9 @@ module.exports = {
         }
         return creep.memory.source;
     },
+	repairMangSource: function(creep){
+		return 1;
+	},
     upgraderSource: function(creep){
         //TODO: finishi this impl
         return 1;

@@ -13,6 +13,11 @@ var general = require('functions.general');
 function my_parent(){
 	this.pos = null;
 	this.creep = null;
+	this.class_name = '<unset>';
+};
+
+my_parent.log = function(stuff){
+	console.log([this.class_name,' said: "',stuff,'"'].join(''));
 };
 
 my_parent.prototype.preDispatch = function(creep){
