@@ -17,11 +17,6 @@ var roleRepairMang = function(creep){
 
 roleRepairMang.prototype = Object.create(parent.prototype);
 roleRepairMang.prototype.constructor = roleRepairMang;
-roleRepairMang.prototype.run = function(creep) {
-    var spawn = config.spawn();
-    var sources = creep.room.find(FIND_SOURCES);
-	
-};
 roleRepairMang.prototype.maxCreep = function(){	
     return 4;
 };
@@ -31,7 +26,7 @@ roleRepairMang.prototype.getSpawnWeight = function(){
 }	
 
 roleRepairMang.prototype.run = function(creep) {
-		creep.say('moo');
+		creep.say('moo',true);
         var spawn = config.spawn();
         if(!u.defined(spawn)){
             console.log("SPAWN undefined");
