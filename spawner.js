@@ -150,7 +150,7 @@ spawnPoint.prototype = {
 	max_creep: {
 				'harvester': 3,
 				'upgrader':3,
-				'builder': 3,
+				'builder': 5,
 	},
     spawn: function(type){
         var c = this.creeps()[type];
