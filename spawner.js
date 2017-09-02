@@ -200,7 +200,7 @@ spawnPoint.prototype = {
                 this.print('setting creep role to harvester');
                 Game.creeps[name].memory.role = 'harvester';
             }
-            var runner = this.creeps()[creep.memory.role]['runner'];
+            var runner = this.creeps()[creep.memory.role]['runner'](creep);
             
             if(runner.preDispatch(creep)){
                 var status = runner.run(creep);
@@ -244,8 +244,7 @@ spawnPoint.prototype = {
 		for(var index in parts)
 		{
 			var part = parts[index];
-			switch(part)
-			{
+			switch(part) {
 				case Game.MOVE:
 					total += 50
 					break;

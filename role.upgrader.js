@@ -13,6 +13,10 @@ var controller = require('struct.controller');
 var creepFunc = require('functions.creep');
 var roleUpgrader = function(){};
 roleUpgrader.prototype = Object.create(parent.prototype);
+roleUpgrader.prototype.constructor = function(creep){
+	parent.call(this);
+	this.creep = creep;
+};
 
 //roleUpgrader.prototype.constructor = function(){}; 
 

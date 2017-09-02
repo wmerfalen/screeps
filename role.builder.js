@@ -7,6 +7,10 @@ var roads = require('struct.roads');
 
 var roleBuilder = function(){};
 roleBuilder.prototype = Object.create(parent.prototype);
+roleBuilder.prototype.constructor = function(creep){
+	parent.call(this);
+	this.creep = creep;
+};
 
 roleBuilder.prototype.run = function(creep) {
     if(creep.memory.building && creep.carry.energy == 0) {

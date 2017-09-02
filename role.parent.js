@@ -10,11 +10,12 @@ var config = require('config');
 var scale = require('scale');    
 var general = require('functions.general');
 
-function parent(){
-    
+function my_parent(){
+	this.pos = null;
+	this.creep = null;
 };
 
-parent.prototype.preDispatch = function(creep){
+my_parent.prototype.preDispatch = function(creep){
     var spawn = config.spawn();
     /* If the number of creeps for this particular role exceeds the max, destroy this creep */
     if( (creep.memory.renew || creep.ticksToLive <= config.tickWarning()) && spawn.energy > 100){
@@ -33,15 +34,34 @@ parent.prototype.preDispatch = function(creep){
     
     return true;
 };
-parent.prototype.destroy = function(creep){
+
+/* THis function is not ready for production use yet */
+my_parent.prototype.is_stuck = function() {
+  if (!this.creep.memory.last) {
+    return false;
+  }
+  if (!this.creep.memory.last.pos2) {
+    return false;
+  }
+  if (!this.creep.memory.last.pos3) {
+    return false;
+  }
+  for (let pos = 1; pos < 4; pos++) {
+    if (!this.creep.pos.isEqualTo(this.creep.memory.last['pos' + pos].x, this.creep.memory.last['pos' + pos].y)) {
+      return false;
+    }
+  }
+  return true;
+};
+my_parent.prototype.destroy = function(creep){
     creep.suicide();
 };
-parent.prototype.roleTemplate = function(){
+my_parent.prototype.roleTemplate = function(){
 	    return scale.getScaledTemplate();
 	};
 
-parent.prototype.shift_role = function(creep,type){
+my_parent.prototype.shift_role = function(creep,type){
     creep.memory.role = type;
 }
 
-module.exports = parent;
+module.exports = my_parent;

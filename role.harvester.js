@@ -14,8 +14,9 @@ var parent = require('role.parent');
 var creepFunc = require('functions.creep');
 var events = require('events');
 var u = require('util');
-var roleHarvester = function(){
+var roleHarvester = function(creep){
     parent.call(this);
+	this.creep = creep;
 }
 
 roleHarvester.prototype = Object.create(parent.prototype);
