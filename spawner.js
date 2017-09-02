@@ -200,8 +200,21 @@ spawnPoint.prototype = {
                 this.print('setting creep role to harvester');
                 Game.creeps[name].memory.role = 'harvester';
             }
-            var runner = this.creeps()[creep.memory.role]['runner'](creep);
-            
+			var runner = {};
+			switch(creep.memory.role){
+				case 'builder': 
+            		runner = new roleBuilder(creep);
+					break;
+				case 'upgrader': 
+            		runner = new roleUpgrader(creep);
+					break;
+				default:	/* Purposeful fall-through behaviour */
+				case 'harvester': 
+            		runner = new roleHarvester(creep);
+					break;
+			}
+
+
             if(runner.preDispatch(creep)){
                 var status = runner.run(creep);
                 if(status){
