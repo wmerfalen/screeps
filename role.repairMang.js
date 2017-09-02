@@ -37,16 +37,18 @@ roleRepairMang.prototype.run = function(creep) {
         }
         var sources = creep.room.find(FIND_SOURCES);
         if(creep.carry.energy < creep.carryCapacity && !creep.memory.energy_full){
-			creep.say('moving to harvest');
+			creep.say('mth');
             var ret = 0;
                 switch( ret = creep.harvest(sources[config.repairMangSource(creep)]) ){
                     case ERR_INVALID_TARGET:
                         console.log("Invalid source passed to creep[harvester]... searching..");
-                        return;
+						/* Purposeful fall through */
                     case 0:
+						creep.say('0');
                         return;
                     case ERR_NOT_IN_RANGE:
                     case -12:
+						creep.say('mt');
                         creep.moveTo(sources[config.harvesterSource(creep)]);
 						break;
                     default:
