@@ -148,9 +148,9 @@ spawnPoint.prototype = {
         return count;
     },
 	max_creep: {
-				'harvester': 3,
-				'upgrader':3,
-				'builder': 5,
+		'harvester': 3,
+		'upgrader':3,
+		'builder': 5,
 	},
     spawn: function(type){
         var c = this.creeps()[type];

@@ -13,6 +13,7 @@ var ext = require('struct.extension');
 var parent = require('role.parent');
 var creepFunc = require('functions.creep');
 var events = require('events');
+var u = require('util');
 var roleHarvester = function(){
     parent.call(this);
 }
@@ -26,12 +27,12 @@ roleHarvester.prototype.run = function(creep) {
         if(spawn.energy < spawn.energyCapacity){
                 creep.memory.energy_fallback = false;
         }
-        if(typeof spawn == "undefined"){
+        if(!u.defined(spawn)){
             console.log("SPAWN undefined");
         }
         
         if(creep.carry.energy == 0){
-            creep.memory.energy_full = false;
+            u.memset(creep,'energy_full',false);
         }
         if(creep.carry.energy < creep.carryCapacity && !creep.memory.energy_full){
             var sources = creep.room.find(FIND_SOURCES);
@@ -79,6 +80,7 @@ roleHarvester.prototype.run = function(creep) {
 	};
 roleHarvester.prototype.maxCreep = function(){	
     //TODO: dynamically calculate the number of required harvesters
+	//TODO: Remove references to this or remove the spawn.max_creep crap
     return 4;
 };
 roleHarvester.prototype.getSpawnWeight = function(){
