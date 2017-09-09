@@ -54,8 +54,8 @@ roleHarvester.prototype.run = function(creep) {
                 }
             return;
         }
-		var room_memory = new rm();
-		if(room_memory.get('fill_extensions') == true){
+		this.room_memory = new rm();
+		if(this.room_memory.get('fill_extensions') == true){
 			console.log('filling extensions');
 			spawn = ext.nextEnergyQueue(creep);
 		}
@@ -70,6 +70,7 @@ roleHarvester.prototype.transfer = function(spawn){
                 console.log("harvester - Spawn full");
                 this.creep.memory.energy_fallback = true;
                 this.creep.memory.energy_full = true;
+				/*
                 return {'trigger_type':'spawn_full','trigger_unless': 1,'trigger_unless_cb': function(events_object){
                         if(events_object.has_seen('spawn_not_full')){
                             return false;
@@ -78,13 +79,15 @@ roleHarvester.prototype.transfer = function(spawn){
                         }
                     }
                 };
+				*/
+				this.room_memory.set('fill_extensions',true);
                 break;
             case ERR_NOT_IN_RANGE:
                 this.creep.moveTo(spawn);
                 break;
             case ERR_NOT_ENOUGH_RESOURCES:
                 console.log("Not enough resources");
-				this.creep.memory.energy_full = false;
+				this.this.creep.memory.energy_full = false;
 				break;
             default:
                 console.log("Unhandled creep.transfer:" + transferReturn);
