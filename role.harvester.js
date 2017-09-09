@@ -54,7 +54,8 @@ roleHarvester.prototype.run = function(creep) {
                 }
             return;
         }
-		if(rm.get('fill_extensions') === true){
+		var room_memory = new rm();
+		if(room_memory.get('fill_extensions') === true){
 			spawn = ext.nextEnergyQueue(creep);
 		}
 
