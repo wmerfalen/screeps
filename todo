@@ -1,4 +1,6 @@
 #august
 [ ] -> If memory.role is not a string set it to harvester
 [ ] -> Wtf is harvester return -4?
-[ ] -> Fill extensions
+[x] -> Fill extensions {2017,09,09}
+[ ] -> If no construction sites, don't spawn builders
+[ ] 	-> Builders become harvesters till they die
