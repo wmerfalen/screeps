@@ -158,7 +158,7 @@ spawnPoint.prototype = {
 		'harvester': 3,
 		'upgrader':3,
 		'builder': 5,
-		//'repairMang': 2,
+		'repairMang': 2,
 	},
 	healers: ['repairMang'],
     spawn: function(type){
