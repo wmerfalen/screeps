@@ -55,11 +55,16 @@ roleHarvester.prototype.run = function(creep) {
             return;
         }
 		var room_memory = new rm();
-		if(room_memory.get('fill_extensions') === true){
+		if(room_memory.get('fill_extensions') == true){
 			console.log('filling extensions');
 			spawn = ext.nextEnergyQueue(creep);
 		}
 
+		this.transfer(spawn);
+
+};
+
+roleHarvester.prototype.transfer = function(spawn){
         switch(transferReturn = creep.transfer(spawn,RESOURCE_ENERGY)){
             case ERR_FULL:
                 console.log("harvester - Spawn full");
