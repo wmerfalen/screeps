@@ -12,6 +12,7 @@ var scale = require('scale');
 var ext = require('struct.extension');
 var parent = require('role.parent');
 var creepFunc = require('functions.creep');
+var rm = require('room.memory');
 var events = require('events');
 var u = require('util');
 var roleHarvester = function(creep){
@@ -53,6 +54,9 @@ roleHarvester.prototype.run = function(creep) {
                 }
             return;
         }
+		if(rm.get('fill_extensions') === true){
+			spawn = ext.nextEnergyQueue(creep);
+		}
 
         switch(transferReturn = creep.transfer(spawn,RESOURCE_ENERGY)){
             case ERR_FULL:
@@ -76,6 +80,7 @@ roleHarvester.prototype.run = function(creep) {
 				creep.memory.energy_full = false;
 				break;
             default:
+				rm.set('fill_extensions',false);
                 console.log("Unhandled creep.transfer:" + transferReturn);
                 break;
         }

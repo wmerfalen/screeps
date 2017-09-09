@@ -18,5 +18,20 @@ module.exports = {
             }
         }
         return null;
-    }
+    },
+	count: function(room){
+		var util = require('util');
+		if(util.defined(room)){
+			var count = 0;
+			var energyFallback = room.find(FIND_MY_STRUCTURES);
+			for(var i in energyFallback){
+				if(energyFallback[i].structureType == STRUCTURE_EXTENSION){
+					++count;
+				}
+			}
+			return count;
+		}else{
+			return null;
+		}
+	},
 };
