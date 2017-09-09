@@ -24,7 +24,7 @@ roleHarvester.prototype = Object.create(parent.prototype);
 
 roleHarvester.prototype.constructor = roleHarvester;
 roleHarvester.prototype.run = function(creep) {
-    
+   		this.creep = creep; 
         var spawn = config.spawn();
         if(spawn.energy < spawn.energyCapacity){
                 creep.memory.energy_fallback = false;
@@ -65,7 +65,7 @@ roleHarvester.prototype.run = function(creep) {
 };
 
 roleHarvester.prototype.transfer = function(spawn){
-        switch(transferReturn = creep.transfer(spawn,RESOURCE_ENERGY)){
+        switch(transferReturn = this.creep.transfer(spawn,RESOURCE_ENERGY)){
             case ERR_FULL:
                 console.log("harvester - Spawn full");
                 creep.memory.energy_fallback = true;
