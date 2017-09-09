@@ -38,4 +38,6 @@ rm.prototype = {
     
 };
 
+rm.prototype.constructor = rm;
+
 module.exports = rm;
