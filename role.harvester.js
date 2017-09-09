@@ -68,8 +68,8 @@ roleHarvester.prototype.transfer = function(spawn){
         switch(transferReturn = this.creep.transfer(spawn,RESOURCE_ENERGY)){
             case ERR_FULL:
                 console.log("harvester - Spawn full");
-                creep.memory.energy_fallback = true;
-                creep.memory.energy_full = true;
+                this.creep.memory.energy_fallback = true;
+                this.creep.memory.energy_full = true;
                 return {'trigger_type':'spawn_full','trigger_unless': 1,'trigger_unless_cb': function(events_object){
                         if(events_object.has_seen('spawn_not_full')){
                             return false;
