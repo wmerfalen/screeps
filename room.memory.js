@@ -7,30 +7,33 @@
  * mod.thing == 'a thing'; // true
  */
 
-function rm(){ };
+function rm(){ 
+	var config = require('config');
+	this.room = config.room();
+};
 
 rm.prototype = {
     set : function(set,val){
         room.memory[set] = val;
     },
     get : function(get){
-        if(typeof room.memory[get] == 'undefined'){
+        if(typeof this.room.memory[get] == 'undefined'){
             return null;
         }
-        return room.memory[get];  
+        return this.room.memory[get];  
     },
     increment : function(item){
-        if(typeof room.memory[item] == 'undefined'){
-            room.memory[item] = 1;
+        if(typeof this.room.memory[item] == 'undefined'){
+            this.room.memory[item] = 1;
         }else{
-            room.memory[item] = room.memory.item + 1;
+            this.room.memory[item] = this.room.memory.item + 1;
         }
     },
     decrement : function(item){
-        if(typeof room.memory[item] == 'undefined'){
-            room.memory[item] = -1;
+        if(typeof this.room.memory[item] == 'undefined'){
+            this.room.memory[item] = -1;
         }else{
-            room.memory[item] = room.memory.item - 1;
+            this.room.memory[item] = this.room.memory.item - 1;
         }
 	},
 };
