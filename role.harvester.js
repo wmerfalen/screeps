@@ -87,7 +87,7 @@ roleHarvester.prototype.transfer = function(spawn){
                 break;
             case ERR_NOT_ENOUGH_RESOURCES:
                 console.log("Not enough resources");
-				this.this.creep.memory.energy_full = false;
+				this.creep.memory.energy_full = false;
 				break;
             default:
                 console.log("Unhandled creep.transfer:" + transferReturn);
