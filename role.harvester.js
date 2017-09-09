@@ -81,7 +81,6 @@ roleHarvester.prototype.run = function(creep) {
 				creep.memory.energy_full = false;
 				break;
             default:
-				rm.set('fill_extensions',false);
                 console.log("Unhandled creep.transfer:" + transferReturn);
                 break;
         }
