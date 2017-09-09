@@ -14,7 +14,7 @@ function rm(){
 
 rm.prototype = {
     set : function(set,val){
-        room.memory[set] = val;
+        this.room.memory[set] = val;
     },
     get : function(get){
         if(typeof this.room.memory[get] == 'undefined'){
