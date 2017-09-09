@@ -7,35 +7,32 @@
  * mod.thing == 'a thing'; // true
  */
 
-function rm(){
-    this.set = function(set,val){
+function rm(){ };
+
+rm.prototype = {
+    set : function(set,val){
         room.memory[set] = val;
-    };
-    this.get = function(get){
+    },
+    get : function(get){
         if(typeof room.memory[get] == 'undefined'){
             return null;
         }
         return room.memory[get];  
-    };
-    this.gameTick = Game.time;
-    this.increment = function(item){
+    },
+    increment : function(item){
         if(typeof room.memory[item] == 'undefined'){
             room.memory[item] = 1;
         }else{
             room.memory[item] = room.memory.item + 1;
         }
-    };
-    this.decrement = function(item){
+    },
+    decrement : function(item){
         if(typeof room.memory[item] == 'undefined'){
             room.memory[item] = -1;
         }else{
             room.memory[item] = room.memory.item - 1;
         }
-    };
-};
-
-rm.prototype = {
-    
+	},
 };
 
 rm.prototype.constructor = rm;
