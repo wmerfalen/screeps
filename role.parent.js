@@ -9,7 +9,7 @@
 var config = require('config');
 var scale = require('scale');    
 var general = require('functions.general');
-var u = require('utils');
+var u = require('util');
 
 function my_parent(){
 	this.pos = null;
