@@ -200,6 +200,11 @@ spawnPoint.prototype = {
 			}
 		//}
     },
+	speak_role: function(){
+		for(var i in Game.creeps){
+			Game.creeps[i].speak(Game.creeps[i].memory.role);
+		}
+	},
 	once_ran : false,
 	exterminate_leftovers: function(){
 		for(var i in this.max_creep){
@@ -235,9 +240,16 @@ spawnPoint.prototype = {
 		}
 		this.once_ran = true;
 	},
+	run_once_per_10_ticks: function(){
+		//
+		this.speak_role();
+	},
     run: function(){
         this.clearCount();
 		this.run_once_per_turn();
+		if(Game.time % 10 == 0){
+			this.run_once_per_10_ticks();
+		}
         if(Object.keys(Game.creeps).length == 0){
             this.print('spawning new harvester');
             this.spawn('harvester');
