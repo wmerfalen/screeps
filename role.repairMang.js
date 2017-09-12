@@ -68,6 +68,7 @@ roleRepairMang.prototype.run = function(creep) {
 			switch(ret = creep.heal(needs_help)){
 				default: this.log(['unhandled return:',ret].join(''));break;
 				case ERR_INVALID_TARGET:
+					this.log(needs_help.toString());
 					this.log('invalid target');break;
             	case ERR_NOT_IN_RANGE:
 					this.log('not in range.. moving..');
