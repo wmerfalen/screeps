@@ -224,6 +224,12 @@ spawnPoint.prototype = {
 		}
 	},
 	run_once_per_turn: function(){
+		if(this.count('harvester') < 3){
+			for(var i in Game.creeps){
+				if(Game.creeps[i].memory.role == 'harvester'){ continue; }
+				Game.creeps[i].memory.role = 'harvester';
+			}
+		}
 		if(this.once_ran){ return; }
 		//this.exterminate_leftovers();
 		/** Give each type a chance to spawn a creep if need be */
