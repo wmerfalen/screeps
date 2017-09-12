@@ -60,6 +60,7 @@ roleRepairMang.prototype.run = function(creep) {
 			var needs_help = roads.getNextHeal();
 			if(!needs_help.pos.isNearTo(creep)){
 				creep.say('moving');
+				console.log(needs_help);
 				creep.moveTo(needs_help);
 			}else{
 				var ret=0;
