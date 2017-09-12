@@ -10,12 +10,11 @@
 module.exports = {
 	getNextHeal: function(){
 		var roads = [];
+		var config = require('config');
 		for(var i in Game.rooms){
-			var collection_of_structures = Game.rooms[i].find(FIND_STRUCTURES);
-			for(var i in collection_of_structures){
-				var current = (collection_of_structures[i]);
-				if(current.toString().match(/road/)){
-					roads.push({'hits': current.hits,'obj': current});
+			var collection_of_structures = config.room().find(FIND_STRUCTURES).forEach(function(i){
+				if(i.structureType == 'road'){
+					roads.push({'ttd': i.ticksToDecay, 'obj': i});
 				}
 			}
 		}
@@ -25,7 +24,7 @@ module.exports = {
 		var needs_help = null;
 		var lowest = 9999;
 		for(var i in roads){
-			if(lowest > roads[i].hits){
+			if(lowest > roads[i].ttd){
 				needs_help = roads[i].obj;
 			}
 		}
