@@ -167,7 +167,7 @@ spawnPoint.prototype = {
 	log: function(msg){
 		console.log(['[spawn]:',msg].join(''));
 	},
-	healers: ['repairMang'],
+	healers: [],
     spawn: function(type){
 		var base = [WORK,CARRY,MOVE];
 		//if(this.count(type) < this.max_creep[type]){
