@@ -13,7 +13,7 @@ module.exports = {
 		var config = require('config');
 		config.room().find(FIND_STRUCTURES).forEach(function(i){
 			if(i.structureType == 'road'){
-				roads.push({'ttd': i.ticksToDecay, 'obj': i});
+				roads.push({'ttd': i.hits, 'obj': i});
 			}
 		});
 		if(roads.length <= 0){

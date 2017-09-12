@@ -65,7 +65,7 @@ roleRepairMang.prototype.run = function(creep) {
 		}else{
 			var ret=0;
 			creep.say('ahor');
-			switch(ret = creep.heal(needs_help)){
+			switch(ret = creep.repair(needs_help)){
 				default: this.log(['unhandled return:',ret].join(''));break;
 				case ERR_INVALID_TARGET:
 					this.log(needs_help.toString());
