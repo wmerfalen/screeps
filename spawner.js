@@ -163,10 +163,40 @@ spawnPoint.prototype = {
 	healers: ['repairMang'],
     spawn: function(type){
 		if(this.count(type) < this.max_creep[type]){
+			var controller = require('struct.controller');
+			var ext = require('struct.extension');
+			
+			if(controller.level() > 2 && ext.count()){
+				var energy = ext.total_energy();
+				var ctr = 0;
+				var max_iterations = 5;
+				var base = [WORK,CARRY,MOVE];
+				while(energy > 0 && max_iterations-- > 0){
+					if(( ctr == 0 && type == 'harvester') || 
+					   ( ctr > 2 && type == 'harvester')){
+						base.push(MOVE);
+						energy -= MOVE;
+						ctr++;
+						continue;
+					}
+					if(ctr == 1 && type == 'harvester'){
+						base.push(WORK);
+						energy -= WORK;
+						ctr++;
+						continue;
+					}
+					if(ctr == 2 && type == 'harvester'){
+						base.push(CARRY);
+						energy -= CARRY;
+						ctr++;
+						continue;
+					}
+				}
+			}
 			if(this.healers.indexOf(type) !== -1){
 				var ret = this.spawnPoint().createCreep([WORK,CARRY,HEAL,MOVE],[type,'_',general.guid()].join(''),{role: type});
 			}else{
-				return this.spawnPoint().createCreep([WORK,CARRY,MOVE],[type,'_',general.guid()].join(''),{role: type});
+				return this.spawnPoint().createCreep(base,[type,'_',general.guid()].join(''),{role: type});
 			}
 		}
     },

@@ -34,4 +34,13 @@ module.exports = {
 			return null;
 		}
 	},
+	total_energy: function(){
+		var total = 0;
+		for(var i in Game.structures){
+			if(Game.structures[i]._structureType == 'extension'){
+				total += Game.structures[i].energy;
+			}
+		}
+		return total;
+	},
 };
