@@ -59,19 +59,18 @@ roleRepairMang.prototype.run = function(creep) {
 			var roads = require('struct.roads');
 			var needs_help = roads.getNextHeal();
 			if(!needs_help.pos.isNearTo(creep)){
-				creep.say('moving');
-				console.log(needs_help);
+				creep.say('target|found');
 				creep.moveTo(needs_help);
 			}else{
 				var ret=0;
 				/* AHOR = Attempting Heal On Road */
 				creep.say('ahor');
-				console.log(needs_help.hits);
+				this.log(['healing road with: ',needs_help.hits,' hits'].join(''));
 				switch(ret = creep.repair(needs_help)){
 					case 0: break;
 					default: this.log(['unhandled return:',ret].join(''));break;
 					case ERR_INVALID_TARGET:
-						this.log(needs_help.toString());
+						this.log(['INVALID TARGET:',needs_help.toString())].join('@');
 						this.log('invalid target');break;
 					case ERR_NOT_IN_RANGE:
 						this.log(['moving to ',needs_help.toString()].join(''));
