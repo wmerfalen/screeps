@@ -9,4 +9,20 @@ module.exports = {
 		creep.memory[member] = value;
 		return 1;
 	},
+	log_once_per: function(ticks,msg,custom_class){
+        if(Game.time % ticks == 0){
+			if(this.defined(custom_class)){
+				this.log(msg,custom_class);
+			}else{
+            	this.log(msg);
+			}
+        }
+    },
+	log: function(msg,custom_class){
+		if(this.defined(custom_class)){
+			console.log(['[',custom_class,']',msg].join(':'));
+		}else{
+			console.log(['[util]',msg].join(':'));
+		}
+	},
 };

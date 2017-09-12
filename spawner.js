@@ -167,6 +167,11 @@ spawnPoint.prototype = {
 	log: function(msg){
 		console.log(['[spawn]:',msg].join(''));
 	},
+	log_once_per: function(ticks,msg){
+		if(Game.time % ticks == 0){
+			this.log(msg);
+		}
+	},
 	healers: [],
     spawn: function(type){
 		var base = [WORK,CARRY,MOVE];

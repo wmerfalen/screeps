@@ -9,6 +9,7 @@
 var config = require('config');
 var scale = require('scale');    
 var general = require('functions.general');
+var u = require('utils');
 
 function my_parent(){
 	this.pos = null;
@@ -20,11 +21,15 @@ my_parent.prototype.log = function(stuff){
 	console.log([this.class_name,' said: "',stuff,'"'].join(''));
 };
 
+my_parent.prototype.log_once_per = function(ticks,stuff){
+	u.log_once_per(ticks,stuff,this.class_name);
+};
+
 my_parent.prototype.preDispatch = function(creep){
     var spawn = config.spawn();
     /* If the number of creeps for this particular role exceeds the max, destroy this creep */
     if( (creep.memory.renew || creep.ticksToLive <= config.tickWarning()) && spawn.energy > 100){
-        console.log("Tick warning on creep: " + creep.id);
+        u.log_once_per(10,"Tick warning on creep: " + creep.id);
         creep.memory.renew = true;
         if(creep.pos.isNearTo(spawn)){
             var ret = spawn.renewCreep(creep);

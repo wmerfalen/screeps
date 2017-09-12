@@ -30,7 +30,7 @@ roleHarvester.prototype.run = function(creep) {
                 creep.memory.energy_fallback = false;
         }
         if(!u.defined(spawn)){
-            console.log("SPAWN undefined");
+            this.log("SPAWN undefined");
         }
         
         if(creep.carry.energy == 0){
@@ -41,7 +41,7 @@ roleHarvester.prototype.run = function(creep) {
             var ret = 0;
                 switch( ret = creep.harvest(sources[config.harvesterSource(creep)]) ){
                     case ERR_INVALID_TARGET:
-                        console.log("Invalid source passed to creep[harvester]... searching..");
+                        this.log("Invalid source passed to creep[harvester]... searching..");
                         return;
                     case 0:
                         return;
@@ -50,13 +50,13 @@ roleHarvester.prototype.run = function(creep) {
                         creep.moveTo(sources[config.harvesterSource(creep)]);
 						break;
                     default:
-                        console.log("Harvest unhandled return: " + ret);
+                        this.log("Harvest unhandled return: " + ret);
                 }
             return;
         }
 		this.room_memory = new rm();
 		if(this.room_memory.get('fill_extensions') == '1'){
-			console.log('filling extensions');
+			this.log('filling extensions');
 			spawn = ext.nextEnergyQueue(creep);
 		}
 
@@ -67,7 +67,7 @@ roleHarvester.prototype.run = function(creep) {
 roleHarvester.prototype.transfer = function(spawn){
         switch(transferReturn = this.creep.transfer(spawn,RESOURCE_ENERGY)){
             case ERR_FULL:
-                console.log("harvester - Spawn full");
+                this.log("harvester - Spawn full");
                 this.creep.memory.energy_fallback = true;
                 this.creep.memory.energy_full = true;
 				/*
@@ -86,11 +86,11 @@ roleHarvester.prototype.transfer = function(spawn){
                 this.creep.moveTo(spawn);
                 break;
             case ERR_NOT_ENOUGH_RESOURCES:
-                console.log("Not enough resources");
+                this.log("Not enough resources");
 				this.creep.memory.energy_full = false;
 				break;
             default:
-                console.log("Unhandled creep.transfer:" + transferReturn);
+                this.log("Unhandled creep.transfer:" + transferReturn);
                 break;
         }
 	};
