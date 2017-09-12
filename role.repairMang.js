@@ -72,7 +72,7 @@ roleRepairMang.prototype.run = function(creep) {
 						this.log(needs_help.toString());
 						this.log('invalid target');break;
 					case ERR_NOT_IN_RANGE:
-						this.log('not in range.. moving..');
+						creep.moveTo(needs_help);
 						break;
 					case ERR_NOT_ENOUGH_RESOURCES:
 						this.log("Not enough resources");
