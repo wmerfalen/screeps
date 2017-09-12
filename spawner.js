@@ -197,7 +197,13 @@ spawnPoint.prototype = {
 			if(this.healers.indexOf(type) !== -1){
 				var ret = this.spawnPoint().createCreep([WORK,CARRY,HEAL,MOVE],[type,'_',general.guid()].join(''),{role: type});
 			}else{
-				return this.spawnPoint().createCreep(base,[type,'_',general.guid()].join(''),{role: type});
+				var ret = this.spawnPoint().createCreep(base,[type,'_',general.guid()].join(''),{role: type});
+				switch(ret){
+					case 0:
+						this.log('zero spawn');break;
+					default:
+						this.log(['unhandled spawn return:',ret,' of type:',type,' with base:',base.toString()].join(''));break;
+				}
 			}
 		}
     },
