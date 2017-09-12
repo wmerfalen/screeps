@@ -33,12 +33,13 @@ roleRepairMang.prototype.run = function(creep) {
         }
         
         if(creep.carry.energy == 0){
-            u.memset(creep,'energy_full','0');
+			u.memset(creep,'harvest','1');
         }
+		if(creep.carry.energy >= creep.carryCapacity){
+			u.memset(creep,'harvest','0');
+		}
         var sources = creep.room.find(FIND_SOURCES);
-        if(
-			(u.mem(creep,'harvest') == '1' && creep.carry.energy < creep.carryCapacity) || 
-			(creep.carry.energy < creep.carryCapacity && creep.memory.energy_full == '0' )){
+        if(u.mem(creep,'harvest') == '1'){
 			creep.say('harvest');
             var ret = 0;
                 switch( ret = creep.harvest(sources[config.repairMangSource(creep)]) ){
@@ -80,7 +81,6 @@ roleRepairMang.prototype.run = function(creep) {
 						break;
 					case ERR_NOT_ENOUGH_RESOURCES:
 						this.log("Not enough resources");
-						u.memset(creep,'energy_full','0');
 						u.memset(creep,'harvest','1');
 						break;
 				}
