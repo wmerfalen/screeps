@@ -224,14 +224,19 @@ spawnPoint.prototype = {
 		}
 	},
 	run_once_per_turn: function(){
+		if(this.once_ran){ return; }
 		if(this.count('harvester') < 3){
 			for(var i in Game.creeps){
 				if(Game.creeps[i].memory.role == 'harvester'){ continue; }
 				Game.creeps[i].memory.role = 'harvester';
 			}
 		}
-		if(this.once_ran){ return; }
 		//this.exterminate_leftovers();
+		/** Check if the spawn is empty, if so, remove the fill_extensions flag */
+		var c = require('config');
+		if(c.spawn().energy < c.spawn().energyCapacity){
+			c.room().memory['fill_extensions'] = '0';
+		}
 		/** Give each type a chance to spawn a creep if need be */
 		for(var i in this.max_creep){
 			if(this.count(i) < this.max_creep[i]){

@@ -55,7 +55,7 @@ roleHarvester.prototype.run = function(creep) {
             return;
         }
 		this.room_memory = new rm();
-		if(this.room_memory.get('fill_extensions') == true){
+		if(this.room_memory.get('fill_extensions') == '1'){
 			console.log('filling extensions');
 			spawn = ext.nextEnergyQueue(creep);
 		}
@@ -80,7 +80,7 @@ roleHarvester.prototype.transfer = function(spawn){
                     }
                 };
 				*/
-				this.room_memory.set('fill_extensions',true);
+				this.room_memory.set('fill_extensions','1');
                 break;
             case ERR_NOT_IN_RANGE:
                 this.creep.moveTo(spawn);
