@@ -14,15 +14,13 @@ var controller  = function(){};
 controller.prototype = Object.create(function(){});
 
 
-controller.prototype = {
-    get: function(){
+controller.prototype.get= function(){
         var room = config.room();
         return room.controller;
-    },
-    level: function(){
+    };
+controller.prototype.level= function(){
         var controller = this.get();
         return controller.level;
-    }
-};
+    };
 
 module.exports = controller;
