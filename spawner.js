@@ -5,6 +5,10 @@
  * You can import it from another modules like this:
  * var mod = require('spawner');
  * mod.thing == 'a thing'; // true
+ * #september{2017}
+ * -> Lots of tweaks and updates. The codebase is maturing but there are still design flaws and
+ * all sorts of things aren't where they should be. The code is becoming more and more coherent,
+ * but it still needs a lot of work. -will
  */
 
 /*
@@ -174,26 +178,11 @@ spawnPoint.prototype = {
 			if(controller.level() > 2 && ext.count()){
 				var energy = ext.total_energy();
 				var ctr = 0;
-				var max_iterations = 5;
-				while(energy > 0 && max_iterations-- > 0){
-					if(( ctr == 0 && type == 'harvester') || 
-					   ( ctr > 2 && type == 'harvester')){
-						base.push(MOVE);
-						energy -= MOVE;
-						ctr++;
-						continue;
-					}
-					if(ctr == 1 && type == 'harvester'){
-						base.push(WORK);
-						energy -= WORK;
-						ctr++;
-						continue;
-					}
-					if(ctr == 2 && type == 'harvester'){
-						base.push(CARRY);
-						energy -= CARRY;
-						ctr++;
-						continue;
+				if(energy > 100){
+					switch(type){
+						case 'harvester': base.push(CARRY);break;
+						case 'upgrader': base.push(CARRY);break;
+						case 'builder': base.push(CARRY);break;
 					}
 				}
 			}
