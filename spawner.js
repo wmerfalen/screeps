@@ -160,6 +160,9 @@ spawnPoint.prototype = {
 		'builder': 5,
 		'repairMang': 2,
 	},
+	log: function(msg){
+		console.log(['[spawn]:',msg].join(''));
+	},
 	healers: ['repairMang'],
     spawn: function(type){
 		var base = [WORK,CARRY,MOVE];
