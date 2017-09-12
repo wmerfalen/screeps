@@ -6,7 +6,7 @@ module.exports = {
 	},
 	memset: function(creep,member,value){
 		if(!this.defined(creep)){ return null; }
-		creep[member] = value;
+		creep.memory[member] = value;
 		return 1;
 	},
 };
