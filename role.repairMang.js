@@ -64,7 +64,7 @@ roleRepairMang.prototype.run = function(creep) {
 			}else{
 				var ret=0;
 				/* AHOR = Attempting Heal On Road */
-				creep.say('ahor');
+				creep.say('healing');
 				this.log(['healing road with: ',needs_help.hits,' hits'].join(''));
 				switch(ret = creep.repair(needs_help)){
 					case 0: break;
