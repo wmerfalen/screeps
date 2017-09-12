@@ -202,7 +202,7 @@ spawnPoint.prototype = {
 					case 0:
 						this.log('zero spawn');break;
 					default:
-						this.log(['unhandled spawn return:',ret,' of type:',type,' with base:',base.toString()].join(''));break;
+						this.log(['unhandled spawn return:',ret,' of type:',type,' with base:',base.join(':')].join(''));break;
 				}
 			}
 		}
