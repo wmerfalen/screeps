@@ -208,7 +208,11 @@ spawnPoint.prototype = {
 		for(var i in Game.creeps){
 			count[Game.creeps[i].memory.role]++;
 		}
-		this.log(count.toString());
+		var final_string = [];
+		for(var i in count){
+			final_string.push([i,count[i]].join(':'));
+		}
+		this.log(final_string.join('|'));
 	},
 	once_ran : false,
 	exterminate_leftovers: function(){
