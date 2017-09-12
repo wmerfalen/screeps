@@ -193,6 +193,7 @@ spawnPoint.prototype = {
 				switch(ret){
 					case 0:
 						this.log('zero spawn');break;
+					case -6: break;
 					default:
 						this.log(['unhandled spawn return:',ret,' of type:',type,' with base:',base.join(':')].join(''));break;
 				}
