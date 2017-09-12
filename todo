@@ -2,5 +2,7 @@
 [ ] -> If memory.role is not a string set it to harvester
 [ ] -> Wtf is harvester return -4?
 [x] -> Fill extensions {2017,09,09}
+#september
 [ ] -> If no construction sites, don't spawn builders
 [ ] 	-> Builders become harvesters till they die
+[ ] -> Build road code for repairMang that can be healed
