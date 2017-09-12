@@ -78,6 +78,7 @@ roleRepairMang.prototype.run = function(creep) {
 						break;
 					case ERR_NOT_ENOUGH_RESOURCES:
 						this.log("Not enough resources");
+						u.memset(creep,'energy_full','0');
 						break;
 				}
 			}
