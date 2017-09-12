@@ -11,13 +11,11 @@ module.exports = {
 	getNextHeal: function(){
 		var roads = [];
 		var config = require('config');
-		for(var i in Game.rooms){
-			var collection_of_structures = config.room().find(FIND_STRUCTURES).forEach(function(i){
-				if(i.structureType == 'road'){
-					roads.push({'ttd': i.ticksToDecay, 'obj': i});
-				}
+		config.room().find(FIND_STRUCTURES).forEach(function(i){
+			if(i.structureType == 'road'){
+				roads.push({'ttd': i.ticksToDecay, 'obj': i});
 			}
-		}
+		});
 		if(roads.length <= 0){
 			return null;
 		}
