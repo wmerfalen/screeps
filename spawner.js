@@ -166,7 +166,7 @@ spawnPoint.prototype = {
 	healers: ['repairMang'],
     spawn: function(type){
 		var base = [WORK,CARRY,MOVE];
-		if(this.count(type) < this.max_creep[type]){
+		//if(this.count(type) < this.max_creep[type]){
 			var _controller = require('struct.controller');
 			var controller = new _controller();
 			var ext = require('struct.extension');
@@ -208,7 +208,7 @@ spawnPoint.prototype = {
 						this.log(['unhandled spawn return:',ret,' of type:',type,' with base:',base.join(':')].join(''));break;
 				}
 			}
-		}
+		//}
     },
 	once_ran : false,
 	exterminate_leftovers: function(){
@@ -225,10 +225,12 @@ spawnPoint.prototype = {
 	},
 	run_once_per_turn: function(){
 		if(this.once_ran){ return; }
-		this.exterminate_leftovers();
+		//this.exterminate_leftovers();
 		/** Give each type a chance to spawn a creep if need be */
 		for(var i in this.max_creep){
-			this.spawn(i);
+			if(this.count(i) < this.max_creep[i]){
+				this.spawn(i);
+			}
 		}
 		this.once_ran = true;
 	},
