@@ -162,6 +162,7 @@ spawnPoint.prototype = {
 	},
 	healers: ['repairMang'],
     spawn: function(type){
+		var base = [WORK,CARRY,MOVE];
 		if(this.count(type) < this.max_creep[type]){
 			var _controller = require('struct.controller');
 			var controller = new _controller();
@@ -171,7 +172,6 @@ spawnPoint.prototype = {
 				var energy = ext.total_energy();
 				var ctr = 0;
 				var max_iterations = 5;
-				var base = [WORK,CARRY,MOVE];
 				while(energy > 0 && max_iterations-- > 0){
 					if(( ctr == 0 && type == 'harvester') || 
 					   ( ctr > 2 && type == 'harvester')){
