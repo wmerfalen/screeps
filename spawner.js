@@ -201,9 +201,14 @@ spawnPoint.prototype = {
 		//}
     },
 	speak_role: function(){
-		for(var i in Game.creeps){
-			Game.creeps[i].say(Game.creeps[i].memory.role);
+		var count = {};
+		for(var i in this.max_creep){
+			count[i] = 0;
 		}
+		for(var i in Game.creeps){
+			count[Game.creeps[i].memory.role]++;
+		}
+		console.log(count.toString());
 	},
 	once_ran : false,
 	exterminate_leftovers: function(){
