@@ -202,7 +202,7 @@ spawnPoint.prototype = {
     },
 	speak_role: function(){
 		for(var i in Game.creeps){
-			Game.creeps[i].speak(Game.creeps[i].memory.role);
+			Game.creeps[i].say(Game.creeps[i].memory.role);
 		}
 	},
 	once_ran : false,
