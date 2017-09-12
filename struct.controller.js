@@ -13,7 +13,7 @@ var struct = require('struct.parent');
 var controller  = function(){};
 controller.prototype = Object.create(function(){});
 
-
+controller.prototype.constructor = controller;
 controller.prototype.get= function(){
         var room = config.room();
         return room.controller;

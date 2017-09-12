@@ -163,7 +163,8 @@ spawnPoint.prototype = {
 	healers: ['repairMang'],
     spawn: function(type){
 		if(this.count(type) < this.max_creep[type]){
-			var controller = require('struct.controller');
+			var _controller = require('struct.controller');
+			var controller = new _controller();
 			var ext = require('struct.extension');
 			
 			if(controller.level() > 2 && ext.count()){
