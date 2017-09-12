@@ -21,7 +21,7 @@ module.exports = {
 		}
 		var needs_help = null;
 		var lowest = 9999;
-		for(var i in roads){
+		for(var i=0;i < roads.length;i++){
 			if(lowest > roads[i].ttd){
 				needs_help = roads[i].obj;
 			}
