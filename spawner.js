@@ -208,7 +208,7 @@ spawnPoint.prototype = {
 		for(var i in Game.creeps){
 			count[Game.creeps[i].memory.role]++;
 		}
-		console.log(count.toString());
+		this.log(count.toString());
 	},
 	once_ran : false,
 	exterminate_leftovers: function(){
